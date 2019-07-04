@@ -1,4 +1,8 @@
-## 0.8.6
+## 0.8.8
+
+- Fix Typo
+
+## 0.8.7
 
 - Minor modifications
 
