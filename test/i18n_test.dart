@@ -32,7 +32,7 @@ void main() {
 
   group('Message building', () {
     test('Todo list', () {
-      ClassMeta root = new ClassMeta();
+      ClassMeta root = ClassMeta();
       root.objectName = "Test";
       root.defaultObjectName = "Test";
       List<TodoItem> todoList = [];
