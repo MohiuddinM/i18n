@@ -1,7 +1,7 @@
 Simple internationalization package for Dart and Flutter.
+This package is an enhancement fork of another internationalization package [https://github.com/fnx-io/i69n].
 
 # Overview
-
 Write your messages into YAML files, and let this package generate
 convenient Dart classes from those files.
 
@@ -45,8 +45,6 @@ Into these **generated** Dart classes:
 Package is an extension (custom builder) for [build_runner](https://pub.dartlang.org/packages/build_runner)
 (Dart standard for source generation) and it can be used with Flutter, AngularDart
 or any other type of Dart project.
-
-# i18n: 51 points simpler than your standard i18n!
 
 ## Motivation and goals
 
