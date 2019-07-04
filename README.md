@@ -1,5 +1,5 @@
 Simple internationalization package for Dart and Flutter.
-This package is an enhancement fork of another internationalization package [https://github.com/fnx-io/i69n].
+This package is an enhancement fork of another internationalization package [https://github.com/fnx-io/i69n]. This package now supports hot reload and is tested on latest versions of Flutter.
 
 # Overview
 Write your messages into YAML files, and let this package generate
@@ -160,7 +160,7 @@ How to decide what translation to use (ExampleMessages_cs?, ExampleMessages_hu?)
 The package simply generates message classes, that's all.
 
     import 'exampleMessages.i18n.dart';
-    import 'exampleMessages_cs.i18n.dart' deferred as cs;
+    import 'exampleMessages_cs.i18n.dart' as cs;
     
     void main() async {
       ExampleMessages m = ExampleMessages();
@@ -255,7 +255,3 @@ or
     pub run build_runner serve example:8080
 
 Now open the browser http://localhost:8080/ and watch the dev tools console.
-
-# Credits
-
-Created by [https://fnx.io](https://fnx.io).

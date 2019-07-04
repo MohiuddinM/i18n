@@ -4,7 +4,7 @@
 import 'package:i18n/i18n.dart' as i18n;
 
 import 'exampleMessages.i18n.dart';
-import 'exampleMessages_cs.i18n.dart' deferred as cs;
+import 'exampleMessages_cs.i18n.dart' as cs;
 
 void main() async {
   print("Hello from i18n!");
@@ -17,8 +17,6 @@ void main() async {
   print(m.apples.count(2));
   print(m.apples.count(5));
 
-  print("Asynchronous load of Czech messages:");
-  await cs.loadLibrary();
   print("Some czech:");
   m = cs.ExampleMessages_cs();
   print(m.generic.ok); // inherited from default

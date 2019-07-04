@@ -1,3 +1,7 @@
+## 0.9.0
+
+- Modifications to work with Hot Reload
+
 ## 0.8.8
 
 - Fix Typo
