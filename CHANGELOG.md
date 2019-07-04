@@ -1,3 +1,11 @@
+## 0.9.2
+
+- Refactor
+
+## 0.9.1
+
+- Test support for German language
+
 ## 0.9.0
 
 - Modifications to work with Hot Reload

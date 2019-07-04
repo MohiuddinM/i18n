@@ -73,13 +73,14 @@ Write your messages into a YAML file:
   
 Write your translations into other YAML files:
 
-    exampleMessages_cs.i18n.yaml (_cs = Czech translation)
+    exampleMessages_de.i18n.yaml (_de = German translation)
     
-    generic:    
-      done: Hotovo
+    generic:
+      ok: OK
+      done: ERLEDIGT
     invoice:
-      create: Vytvořit fakturu
-      delete: Smazat fakturu
+      create: Rechnung erstellen
+      delete: Rechnung löschen
   
 ... run the `webdev` tool, or `build_runner` directly, and use your messages like this:
 
@@ -87,9 +88,9 @@ Write your translations into other YAML files:
     print(m.generic.ok); // output: OK
     print(m.generic.done); // output: DONE
     
-    m = ExampleMessages_cs();
+    m = ExampleMessages_de();
     print(m.generic.ok); // output: OK
-    print(m.generic.done); // output: Hotovo
+    print(m.generic.done); // output: ERLEDIGT
     
 ## Parameters and pluralization
 
@@ -144,7 +145,7 @@ There are three functions you can use in your message:
  is a little bit less scary name :-)
 
 We need only two forms of the word "apple" in English. "Apple" (one) and "apples" (many).
-But in Czech, we need three:
+But in some languages like Czech, we need three:
 
     apples:
       _apples(int cnt): "${_plural(cnt, one:'jablko', few: 'jablka', many:'jablek')}"
@@ -156,11 +157,11 @@ See also:
 
 ## How to use generated classes
 
-How to decide what translation to use (ExampleMessages_cs?, ExampleMessages_hu?) **is up to you**.
+How to decide what translation to use (ExampleMessages_de?, ExampleMessages_hu?) **is up to you**.
 The package simply generates message classes, that's all.
 
     import 'exampleMessages.i18n.dart';
-    import 'exampleMessages_cs.i18n.dart' as cs;
+    import 'exampleMessages_de.i18n.dart' as de;
     
     void main() async {
       ExampleMessages m = ExampleMessages();
@@ -168,8 +169,7 @@ The package simply generates message classes, that's all.
       print(m.apples.count(2));
       print(m.apples.count(5));
     
-      await cs.loadLibrary();
-      m = cs.ExampleMessages_cs(); // see? ExampleMessages_cs extends ExampleMessages
+      m = de.ExampleMessages_de(); // see? ExampleMessages_cs extends ExampleMessages
       print(m.apples.count(1));
       print(m.apples.count(2));
       print(m.apples.count(5));    
@@ -246,7 +246,7 @@ If you implement support for your language, please let me know,
 
 # Example
 
-See [example](example). Clone the package repository ([https://github.com/fnx-io/i18n](https://github.com/fnx-io/i18n)) and run:
+See [example](example). Clone the package repository ([https://github.com/MohiuddinM/i18n](https://github.com/MohiuddinM/i18n)) and run:
 
     webdev serve example:8080
 

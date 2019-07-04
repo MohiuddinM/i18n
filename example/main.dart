@@ -4,7 +4,7 @@
 import 'package:i18n/i18n.dart' as i18n;
 
 import 'exampleMessages.i18n.dart';
-import 'exampleMessages_cs.i18n.dart' as cs;
+import 'exampleMessages_de.i18n.dart' as de;
 
 void main() async {
   print("Hello from i18n!");
@@ -17,8 +17,8 @@ void main() async {
   print(m.apples.count(2));
   print(m.apples.count(5));
 
-  print("Some czech:");
-  m = cs.ExampleMessages_cs();
+  print("Some German:");
+  m = de.ExampleMessages_de();
   print(m.generic.ok); // inherited from default
   print(m.generic.done);
   print(m.invoice.help);
@@ -26,8 +26,8 @@ void main() async {
   print(m.apples.count(2));
   print(m.apples.count(5));
 
-  // Override plurals for Czech or register support for your own language:
-  i18n.registerResolver("cs", (int count, i18n.QuantityType type) {
+  // Override plurals for German or register support for your own language:
+  i18n.registerResolver("de", (int count, i18n.QuantityType type) {
     if (type == i18n.QuantityType.cardinal && count == 1) {
       return i18n.QuantityCategory.one;
     }

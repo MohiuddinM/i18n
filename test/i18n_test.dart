@@ -6,12 +6,23 @@ import 'package:yaml/yaml.dart';
 void main() {
   group('Messages meta data', () {
     testMeta("messages", isDefault: true, defaultObjectName: "Messages", objectName: "Messages", languageCode: "en", localeName: "en");
-    testMeta("messages_cs", isDefault: false, defaultObjectName: "Messages", objectName: "Messages_cs", languageCode: "cs", localeName: "cs");
+    testMeta("messages_de", isDefault: false,
+        defaultObjectName: "Messages",
+        objectName: "Messages_de",
+        languageCode: "de",
+        localeName: "de");
 
     testMeta("domainMessages", isDefault: true, defaultObjectName: "DomainMessages", objectName: "DomainMessages", languageCode: "en", localeName: "en");
-    testMeta("domainMessages_cs", isDefault: false, defaultObjectName: "DomainMessages", objectName: "DomainMessages_cs", languageCode: "cs", localeName: "cs");
-    testMeta("domainMessages_cs_CZ",
-        isDefault: false, defaultObjectName: "DomainMessages", objectName: "DomainMessages_cs_CZ", languageCode: "cs", localeName: "cs_CZ");
+    testMeta("domainMessages_de", isDefault: false,
+        defaultObjectName: "DomainMessages",
+        objectName: "DomainMessages_de",
+        languageCode: "de",
+        localeName: "de");
+    testMeta("domainMessages_de_DE", isDefault: false,
+        defaultObjectName: "DomainMessages",
+        objectName: "DomainMessages_de_DE",
+        languageCode: "de",
+        localeName: "de_DE");
   });
 
   group('Plurals', () {
@@ -22,7 +33,7 @@ void main() {
       expect(plural(10, "en", one: "ONE!", few: "FEW!", other: "OTHER!"), equals("OTHER!"));
     });
 
-    test('cs', () {
+    test('cz', () {
       expect(plural(1, "cs", one: "ONE!", few: "FEW!", other: "OTHER!"), equals("ONE!"));
       expect(plural(2, "cs", one: "ONE!", few: "FEW!", other: "OTHER!"), equals("FEW!"));
       expect(plural(3, "cs", one: "ONE!", few: "FEW!", other: "OTHER!"), equals("FEW!"));
