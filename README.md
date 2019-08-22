@@ -1,5 +1,5 @@
 Simple internationalization package for Dart and Flutter.
-This package is an enhancement fork of another internationalization package [https://github.com/fnx-io/i69n]. This package now supports hot reload and is tested on latest versions of Flutter.
+This package is an permanent fork of another internationalization package [https://github.com/fnx-io/i69n]. This package now supports hot reload and is tested on latest versions of Flutter.
 
 # Overview
 Write your messages into YAML files, and let this package generate
@@ -55,7 +55,6 @@ or any other type of Dart project.
 * I like to bundle messages into thematic groups, the i18n tool should support that and help me with it.
 * Dart has awesome **string interpolation**, I want to leverage that!
 * I like build_runner and code generation.
-* I love the name. i18n is hilarious.
 
 ## Solution
 

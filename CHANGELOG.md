@@ -1,3 +1,19 @@
+## 0.9.4
+
+- Minor changes
+
+## 0.9.3+2
+
+- Revert 0.9.3+1
+
+## 0.9.3+1
+
+- Minor changes
+
+## 0.9.3
+
+- Minor changes
+
 ## 0.9.2
 
 - Refactor
