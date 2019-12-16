@@ -1,3 +1,11 @@
+## 0.9.6
+
+- update packages
+
+## 0.9.5
+
+- add logger instead of prints
+
 ## 0.9.4
 
 - Minor changes

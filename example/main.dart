@@ -2,13 +2,15 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 import 'package:i18n/i18n.dart' as i18n;
+import 'package:quick_log/quick_log.dart';
 
 import 'exampleMessages.i18n.dart';
 import 'exampleMessages_de.i18n.dart' as de;
 
 void main() async {
-  print("Hello from i18n!");
-  print("Some english:");
+  const log = Logger('Main', 'i18n');
+  log.info("Hello from i18n!");
+  log.info("Some english:");
   ExampleMessages m = ExampleMessages();
   print(m.generic.ok);
   print(m.generic.done);
@@ -17,7 +19,7 @@ void main() async {
   print(m.apples.count(2));
   print(m.apples.count(5));
 
-  print("Some German:");
+  log.info("Some German:");
   m = de.ExampleMessages_de();
   print(m.generic.ok); // inherited from default
   print(m.generic.done);
