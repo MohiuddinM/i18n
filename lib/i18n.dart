@@ -5,7 +5,7 @@ import 'src/en.dart' as en;
 /// Language specific function, which is provided with a number and should return one of possible categories.
 /// count is never null.
 ///
-typedef QuantityCategory CategoryResolver(int count, QuantityType type);
+typedef CategoryResolver = QuantityCategory Function(int count, QuantityType type);
 
 enum QuantityCategory { zero, one, two, few, many, other }
 
@@ -37,13 +37,13 @@ String ordinal(int count, String languageCode, {String zero, String one, String 
 }
 
 Map<String, CategoryResolver> _resolverRegistry = {
-  "en": en.quantityResolver,
-  "cs": cs.quantityResolver,
+  'en': en.quantityResolver,
+  'cs': cs.quantityResolver,
 };
 
 String _resolvePlural(int count, String languageCode, QuantityType type, {String zero, String one, String two, String few, String many, String other}) {
-  QuantityCategory c = _resolveCategory(languageCode, count, type);
-  if (c == null) c = QuantityCategory.other;
+  final c = _resolveCategory(languageCode, count, type) ?? QuantityCategory.other;
+//  if (c == null) c = QuantityCategory.other;
   if (many == null) many = other;
   switch (c) {
     case QuantityCategory.zero:

@@ -4,19 +4,19 @@ import 'package:yaml/yaml.dart';
 
 part 'model.dart';
 
-Pattern twoCharsLower = RegExp("^[a-z]{2}\$");
-Pattern twoCharsUpper = RegExp("^[A-Z]{2}\$");
+Pattern twoCharsLower = RegExp('^[a-z]{2}\$');
+Pattern twoCharsUpper = RegExp('^[A-Z]{2}\$');
 
 String generateDartContentFromYaml(ClassMeta meta, String yamlContent) {
   YamlMap messages = loadYaml(yamlContent);
 
-  List<TodoItem> todoList = [];
+  final todoList = <TodoItem>[];
 
   prepareTodoList(todoList, messages, meta);
 
-  StringBuffer output = StringBuffer();
+  final output = StringBuffer();
 
-  output.writeln("// GENERATED FILE, do not edit!");
+  output.writeln('// GENERATED FILE, do not edit!');
   output.writeln("import 'package:i18n/i18n.dart' as i18n;");
   if (meta.defaultFileName != null) {
     output.writeln("import '${meta.defaultFileName}';");
