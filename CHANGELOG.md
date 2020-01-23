@@ -1,3 +1,15 @@
+## 0.9.10
+
+- update dependencies
+
+## 0.9.9
+
+- implement suggestions
+
+## 0.9.8
+
+- minor changes
+
 ## 0.9.7
 
 - minor changes

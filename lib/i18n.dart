@@ -44,7 +44,7 @@ Map<String, CategoryResolver> _resolverRegistry = {
 String _resolvePlural(int count, String languageCode, QuantityType type, {String zero, String one, String two, String few, String many, String other}) {
   final c = _resolveCategory(languageCode, count, type) ?? QuantityCategory.other;
 //  if (c == null) c = QuantityCategory.other;
-  if (many == null) many = other;
+  many ??= other;
   switch (c) {
     case QuantityCategory.zero:
       return _firstNotNull(zero, many);
@@ -59,7 +59,7 @@ String _resolvePlural(int count, String languageCode, QuantityType type, {String
     case QuantityCategory.other:
       return _firstNotNull(other, many);
   }
-  return "???";
+  return '???';
 }
 
 QuantityCategory _defaultResolver(int count, QuantityType type) {
@@ -83,9 +83,7 @@ QuantityCategory _resolveCategory(String languageCode, int count, QuantityType t
   CategoryResolver resolver;
   if (languageCode != null) {
     resolver = _resolverRegistry[languageCode];
-    if (resolver == null) {
-      resolver = _defaultResolver;
-    }
+    resolver ??= _defaultResolver;
   } else {
     resolver = _defaultResolver;
   }
@@ -95,5 +93,5 @@ QuantityCategory _resolveCategory(String languageCode, int count, QuantityType t
 String _firstNotNull(String a, String b) {
   if (a != null) return a;
   if (b != null) return b;
-  return "???";
+  return '???';
 }
