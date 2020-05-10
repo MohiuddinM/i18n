@@ -11,7 +11,7 @@ dependencies:
   # Not imported in code, but used to constrain `build.yaml` requirements
   build_config: ^0.4.0
   yaml: ^2.1.16
-  quick_log: ^0.4.0
+  logging: ^0.11.4
 
 dev_dependencies:
   pedantic: ^1.0.0
