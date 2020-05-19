@@ -4,14 +4,14 @@
 import 'package:i18n/i18n.dart' as i18n;
 import 'package:quick_log/quick_log.dart';
 
-import 'exampleMessages.i18n.dart';
-import 'exampleMessages_de.i18n.dart' as de;
+import 'messages.i18n.dart';
+import 'messages_de.i18n.dart' as de;
 
 void main() async {
   const log = Logger('Main', 'i18n');
   log.info("Hello from i18n!");
   log.info("Some english:");
-  ExampleMessages m = ExampleMessages();
+  Messages m = Messages();
   print(m.generic.ok);
   print(m.generic.done);
   print(m.invoice.help);
@@ -20,7 +20,7 @@ void main() async {
   print(m.apples.count(5));
 
   log.info("Some German:");
-  m = de.ExampleMessages_de();
+  m = de.Messages_de();
   print(m.generic.ok); // inherited from default
   print(m.generic.done);
   print(m.invoice.help);
