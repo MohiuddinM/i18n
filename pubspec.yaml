@@ -1,6 +1,6 @@
 name: i18n
 description: Simple and efficient internationalization solution for dart and flutter, using yaml and code generation.
-version: 0.9.10
+version: 0.9.11
 homepage: https://github.com/MohiuddinM/i18n
 
 environment:

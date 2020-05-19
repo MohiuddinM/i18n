@@ -1,3 +1,7 @@
+## 0.9.11
+
+- support for russian plurals (by [0rbb](https://github.com/MohiuddinM/i18n/pull/4))
+
 ## 0.9.10
 
 - update dependencies
