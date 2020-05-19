@@ -7,7 +7,7 @@ convenient Dart classes from those files.
 
 Turn this **YAML** file:
 
-    lib/exampleMessages.i18n.yaml
+    lib/messages.i18n.yaml
     
     button:
       save: Save
@@ -18,27 +18,27 @@ Turn this **YAML** file:
   
 Into these **generated** Dart classes:
 
-    class ExampleMessages {
-        const ExampleMessages();
-        ButtonExampleMessages get button => ButtonExampleMessages(this);
-        UsersExampleMessages get users => UsersExampleMessages(this);
+    class Messages {
+        const Messages();
+        ButtonMessages get button => ButtonExampleMessages(this);
+        UsersMessages get users => UsersExampleMessages(this);
     }
-    class ButtonExampleMessages {
-        final ExampleMessages _parent;
-        const ButtonExampleMessages(this._parent);
+    class ButtonMessages {
+        final Messages _parent;
+        const ButtonMessages(this._parent);
         String get save => "Save";
         String get load => "Load";
     }
-    class UsersExampleMessages {
-        final ExampleMessages _parent;
-        const UsersExampleMessages(this._parent);
+    class UsersMessages {
+        final Messages _parent;
+        const UsersMessages(this._parent);
         String get logout => "Logout";
         String welcome(String name) => "Hello $name!";
     }
 
 ... and **use them** in your code - plain and simple.
 
-    ExampleMessages m = ExampleMessages();
+    Messages m = Messages();
     print(m.users.welcome('World'));
     // outputs: Hello World!
 
@@ -60,7 +60,7 @@ or any other type of Dart project.
 
 Write your messages into a YAML file:
 
-    exampleMessages.i18n.yaml (default messages):
+    messages.i18n.yaml (default messages):
     
     generic:
       ok: OK
@@ -72,7 +72,7 @@ Write your messages into a YAML file:
   
 Write your translations into other YAML files:
 
-    exampleMessages_de.i18n.yaml (_de = German translation)
+    messages_de.i18n.yaml (_de = German translation)
     
     generic:
       ok: OK
@@ -83,11 +83,11 @@ Write your translations into other YAML files:
   
 ... run the `webdev` tool, or `build_runner` directly, and use your messages like this:
 
-    ExampleMessages m = ExampleMessages();
+    Messages m = Messages();
     print(m.generic.ok); // output: OK
     print(m.generic.done); // output: DONE
     
-    m = ExampleMessages_de();
+    m = Messages_de();
     print(m.generic.ok); // output: OK
     print(m.generic.done); // output: ERLEDIGT
     
@@ -108,24 +108,24 @@ The implementation is VERY straightforward, which allows you to do all sorts of 
       
 Now see the generated classes: 
 
-    class ExampleMessages {
-        const ExampleMessages();
-        InvoiceExampleMessages get invoice => InvoiceExampleMessages(this);        
-        ApplesExampleMessages get apples => ApplesExampleMessages(this);
+    class Messages {
+        const Messages();
+        InvoiceMessages get invoice => InvoiceExampleMessages(this);        
+        ApplesMessages get apples => ApplesExampleMessages(this);
     }
         
-    class InvoiceExampleMessages {
-        final ExampleMessages _parent;
-        const InvoiceExampleMessages(this._parent);
+    class InvoiceMessages {
+        final Messages _parent;
+        const InvoiceMessages(this._parent);
         String get create => "Create invoice";
         String get help => "Use this function to generate new invoices and stuff. Awesome!";
         String get delete => "Delete invoice";
         String count(int cnt) => "You have created $cnt ${_plural(cnt, one:'invoice', many:'invoices')}.";
     }
     
-    class ApplesExampleMessages {
-        final ExampleMessages _parent;
-        const ApplesExampleMessages(this._parent);
+    class ApplesMessages {
+        final Messages _parent;
+        const ApplesMessages(this._parent);
         String _apples(int cnt) => "${_plural(cnt, one:'apple', many:'apples')}";
         String count(int cnt) => "You have eaten $cnt ${_apples(cnt)}.";
     }         
@@ -159,16 +159,16 @@ See also:
 How to decide what translation to use (ExampleMessages_de?, ExampleMessages_hu?) **is up to you**.
 The package simply generates message classes, that's all.
 
-    import 'exampleMessages.i18n.dart';
-    import 'exampleMessages_de.i18n.dart' as de;
+    import 'messages.i18n.dart';
+    import 'messages_de.i18n.dart' as de;
     
     void main() async {
-      ExampleMessages m = ExampleMessages();
+      Messages m = Messages();
       print(m.apples.count(1));
       print(m.apples.count(2));
       print(m.apples.count(5));
     
-      m = de.ExampleMessages_de(); // see? ExampleMessages_cs extends ExampleMessages
+      m = de.Messages_de(); // see? ExampleMessages_cs extends ExampleMessages
       print(m.apples.count(1));
       print(m.apples.count(2));
       print(m.apples.count(5));    
@@ -234,23 +234,4 @@ and [Czech](lib/src/cs.dart) and [English](lib/src/en.dart)
 implementation.
 
 If you implement support for your language, please let me know,
- I'll gladly embed it into the package. 
- 
-# TODO
-
-* More detailed docs.
-* Use it in some of our projects for real.
-* Current limitation: default language must be english
-* TODO: support custom imports 
-
-# Example
-
-See [example](example). Clone the package repository ([https://github.com/MohiuddinM/i18n](https://github.com/MohiuddinM/i18n)) and run:
-
-    webdev serve example:8080
-
-or
-
-    pub run build_runner serve example:8080
-
-Now open the browser http://localhost:8080/ and watch the dev tools console.
+I'll gladly embed it into the package. 

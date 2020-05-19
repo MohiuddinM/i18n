@@ -1,6 +1,6 @@
 name: i18n
-description: Simple and efficient internationalization solution for dart and flutter, using yaml and code generation.
-version: 0.9.11
+description: Simple i18n solution for dart and flutter. Uses code generation to generate translations as dart classes. Efficient and works with autocomplete!
+version: 0.9.12
 homepage: https://github.com/MohiuddinM/i18n
 
 environment:
