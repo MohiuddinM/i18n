@@ -115,9 +115,9 @@ void renderTodoItem(TodoItem todo, StringBuffer output) {
     } else {
       if (k.contains('(')) {
         // function
-        output.writeln('\tString ${k} => "${v}";');
+        output.writeln('\tString ${k} => """${v}""";');
       } else {
-        output.writeln('\tString get ${k} => "${v}";');
+        output.writeln('\tString get ${k} => """${v}""";');
       }
     }
   });
