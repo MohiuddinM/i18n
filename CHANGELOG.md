@@ -1,3 +1,11 @@
+## 1.2.0
+
+- update dependencies
+
+## 1.1.0
+
+- stable release
+
 ## 0.9.12
 
 - update readme and package description
