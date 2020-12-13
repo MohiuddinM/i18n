@@ -64,10 +64,10 @@ void main() {
 
   group('Message building', () {
     test('Todo list', () {
-      ClassMeta root = ClassMeta();
+      final root = ClassMeta();
       root.objectName = 'Test';
       root.defaultObjectName = 'Test';
-      List<TodoItem> todoList = [];
+      final todoList = <TodoItem>[];
       var yaml = 'foo:\n'
           '  subfoo: subbar\n'
           '  subfoo2: subbar2\n'
@@ -93,7 +93,7 @@ void main() {
 }
 
 void testMeta(String name, {bool isDefault, String defaultObjectName, String objectName, String languageCode, String localeName}) {
-  ClassMeta meta = generateMessageObjectName(name);
+  final meta = generateMessageObjectName(name);
   test('$name: isDefault', () {
     expect(meta.isDefault, equals(isDefault));
   });
