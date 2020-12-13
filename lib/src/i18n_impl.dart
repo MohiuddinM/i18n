@@ -7,6 +7,26 @@ part 'model.dart';
 Pattern twoCharsLower = RegExp('^[a-z]{2}\$');
 Pattern twoCharsUpper = RegExp('^[A-Z]{2}\$');
 
+extension FirstUpper on String {
+  String convertName() {
+    final parts = split('_');
+
+    if (parts.length == 1) {
+      return this;
+    } else if (parts.length == 2) {
+      return parts.first + parts.last.firstUpper();
+    } else if (parts.length == 3) {
+      return parts.first + parts[1].firstUpper() + parts.last.firstUpper();
+    } else {
+      throw ArgumentError();
+    }
+  }
+
+  String firstUpper() {
+    return substring(0, 1).toUpperCase() + substring(1);
+  }
+}
+
 String generateDartContentFromYaml(ClassMeta meta, String yamlContent) {
   final messages = loadYaml(yamlContent);
 
@@ -21,16 +41,22 @@ String generateDartContentFromYaml(ClassMeta meta, String yamlContent) {
   if (meta.defaultFileName != null) {
     output.writeln("import '${meta.defaultFileName}';");
   }
-  output.writeln('');
+  // output.writeln('');
   output.writeln('String get _languageCode => \'${meta.languageCode}\';');
-  output.writeln('String get _localeName => \'${meta.localeName}\';');
-  output.writeln('');
-  output.writeln('String _plural(int count, {String zero, String one, String two, String few, String many, String other}) =>');
-  output.writeln('\ti18n.plural(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
-  output.writeln('String _ordinal(int count, {String zero, String one, String two, String few, String many, String other}) =>');
-  output.writeln('\ti18n.ordinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
-  output.writeln('String _cardinal(int count, {String zero, String one, String two, String few, String many, String other}) =>');
-  output.writeln('\ti18n.cardinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
+  // output.writeln('String get _localeName => \'${meta.localeName}\';');
+  // output.writeln('');
+  output.writeln(
+      'String _plural(int count, {String zero, String one, String two, String few, String many, String other}) =>');
+  output.writeln(
+      '\ti18n.plural(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
+  output.writeln(
+      'String _ordinal(int count, {String zero, String one, String two, String few, String many, String other}) =>');
+  output.writeln(
+      '\ti18n.ordinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
+  output.writeln(
+      'String _cardinal(int count, {String zero, String one, String two, String few, String many, String other}) =>');
+  output.writeln(
+      '\ti18n.cardinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
   output.writeln('');
 
   for (var todo in todoList) {
@@ -69,21 +95,21 @@ ClassMeta generateMessageObjectName(String fileName) {
     if (nameParts.length >= 2) {
       final languageCode = nameParts[1];
       if (twoCharsLower.allMatches(languageCode).length != 1) {
-        throw Exception('Wrong language code "$languageCode" in file name "$fileName". Language code must match $twoCharsLower');
+        throw Exception(
+            'Wrong language code "$languageCode" in file name "$fileName". Language code must match $twoCharsLower');
       }
       result.languageCode = languageCode;
       result.localeName = languageCode;
     }
     if (nameParts.length == 3) {
       final countryCode = nameParts[2];
-      if (twoCharsUpper
-          .allMatches(countryCode)
-          .length != 1) {
-        throw Exception('Wrong country code "$countryCode" in file name "$fileName". Country code must match $twoCharsUpper');
+      if (twoCharsUpper.allMatches(countryCode).length != 1) {
+        throw Exception(
+            'Wrong country code "$countryCode" in file name "$fileName". Country code must match $twoCharsUpper');
       }
       result.localeName = '${result.languageCode}_${countryCode}';
     }
-    result.objectName = "${result.defaultObjectName}_${result.localeName}";
+    result.objectName = '${result.defaultObjectName}_${result.localeName}';
     return result;
   }
 }
@@ -94,24 +120,31 @@ void renderTodoItem(TodoItem todo, StringBuffer output) {
   if (meta.isDefault) {
     output.writeln('class ${meta.objectName} {');
   } else {
-    output.writeln('class ${meta.objectName} extends ${meta.defaultObjectName} {');
+    output.writeln(
+        'class ${meta.objectName.convertName()} extends ${meta
+            .defaultObjectName} {');
   }
 
   if (meta.parent == null) {
-    output.writeln('\tconst ${meta.objectName}();');
+    output.writeln('\tconst ${meta.objectName.convertName()}();');
   } else {
-    output.writeln('\tfinal ${meta.parent.objectName} _parent;');
+    output.writeln(
+        '\tfinal ${meta.parent.objectName.convertName()} _parent;');
     if (meta.isDefault) {
       output.writeln('\tconst ${meta.objectName}(this._parent);');
     } else {
-      output.writeln('\tconst ${meta.objectName}(this._parent):super(_parent);');
+      output.writeln(
+          '\tconst ${meta.objectName
+              .convertName()}(this._parent):super(_parent);');
     }
   }
   content.forEach((k, v) {
     if (v is YamlMap) {
       final prefix = _firstCharUpper(k);
       final child = meta.nest(prefix);
-      output.writeln('\t${child.objectName} get ${k} => ${child.objectName}(this);');
+      output.writeln(
+          '\t${child.objectName.convertName()} get ${k} => ${child.objectName
+              .convertName()}(this);');
     } else {
       if (k.contains('(')) {
         // function
@@ -124,7 +157,8 @@ void renderTodoItem(TodoItem todo, StringBuffer output) {
   output.writeln('}');
 }
 
-void prepareTodoList(List<TodoItem> todoList, YamlMap messages, ClassMeta name) {
+void prepareTodoList(List<TodoItem> todoList, YamlMap messages,
+    ClassMeta name) {
   final todo = TodoItem(name, messages);
   todoList.add(todo);
 

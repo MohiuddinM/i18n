@@ -23,7 +23,7 @@ QuantityCategory _resolveCardinal(int count) {
 
 QuantityCategory _resolveOrdinal(int count) {
   final mod10 = count % 10;
-  final mod100 = count % 100;
+  // final mod100 = count % 100;
 
   if (count >= 5 && count <= 20) return QuantityCategory.many;
   if (mod10 == 1) return QuantityCategory.one;

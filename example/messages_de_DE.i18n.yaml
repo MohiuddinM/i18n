@@ -1,0 +1,12 @@
+generic:
+  ok: OK
+  done: ERLEDIGT
+invoice:
+  create: Rechnung erstellen
+  delete: Rechnung löschen
+  help: "Verwenden Sie diese Funktion,
+   um neue Rechnungen und Sachen zu generieren."
+  count(int cnt): "Du hast geschaffen $cnt ${_plural(cnt, one:'Rechnung', many:'Rechnungen')}."
+apples:
+  _apples(int cnt): "${_plural(cnt, one:'Apfel', many:'Äpfel')}"
+  count(int cnt): "Du hast gegessen $cnt ${_apples(cnt)}."

@@ -1,3 +1,15 @@
+## 2.0.0
+
+- change names of generated classes
+
+## 1.2.2
+
+- minor changes
+
+## 1.2.1
+
+- minor changes
+
 ## 1.2.0
 
 - update dependencies
