@@ -92,7 +92,12 @@ void main() {
   });
 }
 
-void testMeta(String name, {bool isDefault, String defaultObjectName, String objectName, String languageCode, String localeName}) {
+void testMeta(String name,
+    {bool isDefault,
+    String defaultObjectName,
+    String objectName,
+    String languageCode,
+    String localeName}) {
   final meta = generateMessageObjectName(name);
   test('$name: isDefault', () {
     expect(meta.isDefault, equals(isDefault));

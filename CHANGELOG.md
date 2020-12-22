@@ -1,3 +1,7 @@
+## 2.0.1
+
+- minor changes
+
 ## 2.0.0
 
 - change names of generated classes

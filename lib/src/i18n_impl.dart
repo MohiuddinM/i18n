@@ -121,21 +121,18 @@ void renderTodoItem(TodoItem todo, StringBuffer output) {
     output.writeln('class ${meta.objectName} {');
   } else {
     output.writeln(
-        'class ${meta.objectName.convertName()} extends ${meta
-            .defaultObjectName} {');
+        'class ${meta.objectName.convertName()} extends ${meta.defaultObjectName} {');
   }
 
   if (meta.parent == null) {
     output.writeln('\tconst ${meta.objectName.convertName()}();');
   } else {
-    output.writeln(
-        '\tfinal ${meta.parent.objectName.convertName()} _parent;');
+    output.writeln('\tfinal ${meta.parent.objectName.convertName()} _parent;');
     if (meta.isDefault) {
       output.writeln('\tconst ${meta.objectName}(this._parent);');
     } else {
       output.writeln(
-          '\tconst ${meta.objectName
-              .convertName()}(this._parent):super(_parent);');
+          '\tconst ${meta.objectName.convertName()}(this._parent):super(_parent);');
     }
   }
   content.forEach((k, v) {
@@ -143,8 +140,7 @@ void renderTodoItem(TodoItem todo, StringBuffer output) {
       final prefix = _firstCharUpper(k);
       final child = meta.nest(prefix);
       output.writeln(
-          '\t${child.objectName.convertName()} get ${k} => ${child.objectName
-              .convertName()}(this);');
+          '\t${child.objectName.convertName()} get ${k} => ${child.objectName.convertName()}(this);');
     } else {
       if (k.contains('(')) {
         // function
@@ -157,8 +153,8 @@ void renderTodoItem(TodoItem todo, StringBuffer output) {
   output.writeln('}');
 }
 
-void prepareTodoList(List<TodoItem> todoList, YamlMap messages,
-    ClassMeta name) {
+void prepareTodoList(
+    List<TodoItem> todoList, YamlMap messages, ClassMeta name) {
   final todo = TodoItem(name, messages);
   todoList.add(todo);
 
