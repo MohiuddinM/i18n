@@ -64,9 +64,14 @@ void main() {
 
   group('Message building', () {
     test('Todo list', () {
-      final root = ClassMeta();
-      root.objectName = 'Test';
-      root.defaultObjectName = 'Test';
+      final root = ClassMeta(
+          objectName: 'Test',
+          defaultObjectName: 'Test',
+          localeName: 'en',
+          isDefault: false,
+          languageCode: 'en',
+          defaultFileName: '');
+
       final todoList = <TodoItem>[];
       var yaml = 'foo:\n'
           '  subfoo: subbar\n'
@@ -85,19 +90,21 @@ void main() {
       expect(todoList[1].meta.objectName, equals('OrTest'));
       expect(todoList[2].meta.objectName, equals('StatusOrTest'));
       expect(todoList[2].meta.parent, equals(todoList[1].meta));
-      expect(todoList[2].meta.parent.parent, equals(todoList[3].meta));
+      expect(todoList[2].meta.parent?.parent, equals(todoList[3].meta));
       expect(todoList[3].meta.objectName, equals('Test'));
       expect(todoList[3].meta.parent, isNull);
     });
   });
 }
 
-void testMeta(String name,
-    {bool isDefault,
-    String defaultObjectName,
-    String objectName,
-    String languageCode,
-    String localeName}) {
+void testMeta(
+  String name, {
+  required bool isDefault,
+  required String defaultObjectName,
+  required String objectName,
+  required String languageCode,
+  required String localeName,
+}) {
   final meta = generateMessageObjectName(name);
   test('$name: isDefault', () {
     expect(meta.isDefault, equals(isDefault));

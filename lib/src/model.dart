@@ -1,22 +1,34 @@
 part of i18n;
 
 class ClassMeta {
-  ClassMeta parent;
-  bool isDefault;
-  String defaultObjectName;
-  String defaultFileName;
-  String objectName;
-  String localeName;
-  String languageCode;
+  final ClassMeta? parent;
+  final bool isDefault;
+  final String defaultObjectName;
+  final String? defaultFileName;
+  final String objectName;
+  final String localeName;
+  final String languageCode;
+
+  ClassMeta({
+    this.parent,
+    required this.isDefault,
+    required this.defaultObjectName,
+    this.defaultFileName,
+    required this.objectName,
+    required this.localeName,
+    required this.languageCode,
+  });
 
   ClassMeta nest(String namePrefix) {
-    final result = ClassMeta();
-    result.parent = this;
-    result.isDefault = isDefault;
-    result.defaultObjectName = '${namePrefix}${defaultObjectName}';
-    result.objectName = '${namePrefix}${objectName}';
-    result.localeName = localeName;
-    result.languageCode = languageCode;
+    final result = ClassMeta(
+      parent: this,
+      isDefault: isDefault,
+      defaultObjectName: '${namePrefix}${defaultObjectName}',
+      defaultFileName: defaultFileName,
+      objectName: '${namePrefix}${objectName}',
+      localeName: localeName,
+      languageCode: languageCode,
+    );
     return result;
   }
 }
