@@ -4,13 +4,13 @@ version: 2.0.1
 homepage: https://github.com/MohiuddinM/i18n
 
 environment:
-  sdk: '>=2.10.0 <3.0.0'
+  sdk: '>=2.12.0-0.0.dev <3.0.0'
 
 dependencies:
   build: ^1.6.0
   # Not imported in code, but used to constrain `build.yaml` requirements
   build_config: ^0.4.0
-  yaml: ^2.2.1
+  yaml: ^3.0.0
   quick_log: ^2.0.0
 
 dev_dependencies:

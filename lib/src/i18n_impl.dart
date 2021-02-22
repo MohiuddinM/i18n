@@ -46,15 +46,15 @@ String generateDartContentFromYaml(ClassMeta meta, String yamlContent) {
   // output.writeln('String get _localeName => \'${meta.localeName}\';');
   // output.writeln('');
   output.writeln(
-      'String _plural(int count, {String zero, String one, String two, String few, String many, String other}) =>');
+      'String _plural(int count, {String? zero, String? one, String? two, String?few, String? many, String? other}) =>');
   output.writeln(
       '\ti18n.plural(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
   output.writeln(
-      'String _ordinal(int count, {String zero, String one, String two, String few, String many, String other}) =>');
+      'String _ordinal(int count, {String? zero, String? one, String? two, String? few, String? many, String? other}) =>');
   output.writeln(
       '\ti18n.ordinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
   output.writeln(
-      'String _cardinal(int count, {String zero, String one, String two, String few, String many, String other}) =>');
+      'String _cardinal(int count, {String? zero, String? one, String? two, String? few, String? many, String? other}) =>');
   output.writeln(
       '\ti18n.cardinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
   output.writeln('');
@@ -75,31 +75,37 @@ ClassMeta generateMessageObjectName(String fileName) {
     throw Exception(_renderFileNameError(name));
   }
 
-  final result = ClassMeta();
-
-  result.defaultObjectName = _firstCharUpper(nameParts[0]);
+  var defaultObjectName = _firstCharUpper(nameParts[0]);
+  var objectName = defaultObjectName;
+  String? defaultFileName;
+  var isDefault = true;
+  var languageCode = 'en';
+  var localeName = 'en';
 
   if (nameParts.length == 1) {
-    result.objectName = result.defaultObjectName;
-    result.isDefault = true;
-    result.languageCode = 'en';
-    result.localeName = 'en';
-    return result;
+    return ClassMeta(
+      languageCode: languageCode,
+      objectName: objectName,
+      defaultObjectName: defaultObjectName,
+      isDefault: isDefault,
+      localeName: localeName,
+      defaultFileName: defaultFileName,
+    );
   } else {
-    result.defaultFileName = '${nameParts[0]}.i18n.dart';
-    result.isDefault = false;
+    defaultFileName = '${nameParts[0]}.i18n.dart';
+    isDefault = false;
 
     if (nameParts.length > 3) {
       throw Exception(_renderFileNameError(name));
     }
     if (nameParts.length >= 2) {
-      final languageCode = nameParts[1];
+      languageCode = nameParts[1];
       if (twoCharsLower.allMatches(languageCode).length != 1) {
         throw Exception(
             'Wrong language code "$languageCode" in file name "$fileName". Language code must match $twoCharsLower');
       }
-      result.languageCode = languageCode;
-      result.localeName = languageCode;
+      languageCode = languageCode;
+      localeName = languageCode;
     }
     if (nameParts.length == 3) {
       final countryCode = nameParts[2];
@@ -107,10 +113,17 @@ ClassMeta generateMessageObjectName(String fileName) {
         throw Exception(
             'Wrong country code "$countryCode" in file name "$fileName". Country code must match $twoCharsUpper');
       }
-      result.localeName = '${result.languageCode}_${countryCode}';
+      localeName = '${languageCode}_${countryCode}';
     }
-    result.objectName = '${result.defaultObjectName}_${result.localeName}';
-    return result;
+    objectName = '${defaultObjectName}_${localeName}';
+    return ClassMeta(
+      languageCode: languageCode,
+      objectName: objectName,
+      defaultObjectName: defaultObjectName,
+      isDefault: isDefault,
+      localeName: localeName,
+      defaultFileName: defaultFileName,
+    );
   }
 }
 
@@ -124,10 +137,11 @@ void renderTodoItem(TodoItem todo, StringBuffer output) {
         'class ${meta.objectName.convertName()} extends ${meta.defaultObjectName} {');
   }
 
-  if (meta.parent == null) {
+  var parent = meta.parent;
+  if (parent == null) {
     output.writeln('\tconst ${meta.objectName.convertName()}();');
   } else {
-    output.writeln('\tfinal ${meta.parent.objectName.convertName()} _parent;');
+    output.writeln('\tfinal ${parent.objectName.convertName()} _parent;');
     if (meta.isDefault) {
       output.writeln('\tconst ${meta.objectName}(this._parent);');
     } else {
