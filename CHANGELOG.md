@@ -1,3 +1,7 @@
+## 3.0.0-nullsafety
+
+- support null saftey (by [joecks](https://github.com/MohiuddinM/i18n/pull/12))
+
 ## 2.0.1
 
 - minor changes
