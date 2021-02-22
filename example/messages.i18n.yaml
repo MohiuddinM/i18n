@@ -4,6 +4,7 @@ generic:
 invoice:
   create: Create invoice
   delete: Delete invoice
+  price: "\\$300"
   help: "Use this function
   to generate new invoices and stuff.
   Awesome!"
