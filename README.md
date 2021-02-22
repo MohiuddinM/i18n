@@ -1,9 +1,14 @@
-Simple internationalization package for Dart and Flutter.
-This package is an permanent fork of another internationalization package [https://github.com/fnx-io/i69n]. This package now supports hot reload and is tested on latest versions of Flutter.
+# i18n
+
+![tests](https://github.com/MohiuddinM/i18n/workflows/test/badge.svg)
+
+Simple internationalization package for Dart and Flutter. This package is a permanent fork of another
+internationalization package [https://github.com/fnx-io/i69n]. This package now supports hot reload and is tested on
+latest versions of Flutter.
 
 # Overview
-Write your messages into YAML files, and let this package generate
-convenient Dart classes from those files.
+
+Write your messages into YAML files, and let this package generate convenient Dart classes from those files.
 
 Turn this **YAML** file:
 
@@ -15,7 +20,7 @@ Turn this **YAML** file:
     users:
       welcome(String name): "Hello $name!"
       logout: Logout
-  
+
 Into these **generated** Dart classes:
 
     class Messages {
@@ -68,8 +73,7 @@ Write your messages into a YAML file:
     invoice:
       create: Create invoice
       delete: Delete invoice
-  
-  
+
 Write your translations into other YAML files:
 
     messages_de.i18n.yaml (_de = German translation)
@@ -80,7 +84,7 @@ Write your translations into other YAML files:
     invoice:
       create: Rechnung erstellen
       delete: Rechnung löschen
-  
+
 ... run the `webdev` tool, or `build_runner` directly, and use your messages like this:
 
     Messages m = Messages();
@@ -90,7 +94,7 @@ Write your translations into other YAML files:
     m = Messages_de();
     print(m.generic.ok); // output: OK
     print(m.generic.done); // output: ERLEDIGT
-    
+
 ## Parameters and pluralization
 
 The implementation is VERY straightforward, which allows you to do all sorts of crazy stuff:
@@ -105,8 +109,8 @@ The implementation is VERY straightforward, which allows you to do all sorts of 
     apples:
       _apples(int cnt): "${_plural(cnt, one:'apple', many:'apples')}"
       count(int cnt): "You have eaten $cnt ${_apples(cnt)}."
-      
-Now see the generated classes: 
+
+Now see the generated classes:
 
     class Messages {
         const Messages();
@@ -129,7 +133,7 @@ Now see the generated classes:
         String _apples(int cnt) => "${_plural(cnt, one:'apple', many:'apples')}";
         String count(int cnt) => "You have eaten $cnt ${_apples(cnt)}.";
     }         
-    
+
 See how you can **reuse** the pluralization of `_apples(int cnt)`? (nice!)
 
 There are three functions you can use in your message:
@@ -141,14 +145,14 @@ There are three functions you can use in your message:
     String _ordinal(int count, {String zero, String one, String two, String few, String many, String other})
 
 `_plural` and `_cardinal` do the same. I just felt that `_plural`
- is a little bit less scary name :-)
+is a little bit less scary name :-)
 
 We need only two forms of the word "apple" in English. "Apple" (one) and "apples" (many).
 But in some languages like Czech, we need three:
 
     apples:
       _apples(int cnt): "${_plural(cnt, one:'jablko', few: 'jablka', many:'jablek')}"
- 
+
 See also:
 
 * http://cldr.unicode.org/index/cldr-spec/plural-rules
@@ -173,7 +177,7 @@ The package simply generates message classes, that's all.
       print(m.apples.count(2));
       print(m.apples.count(5));    
     }    
-                      
+
 Where and how to store instances of these message classes - 
 again, **up to you**. I would consider ScopedModel for Flutter and registering
 messages instance into dependency injection in AngularDart.
@@ -198,18 +202,18 @@ Add `build_runner` as a dev_dependency and `i18n` as a dependency to `pubspec.ya
       build_runner: any
       flutter_test:
         sdk: flutter
- 
+
 Open a terminal and in the root of your Flutter project run:
 
     flutter packages pub run build_runner watch
-    
+
 ... and keep it running. Your message classes will appear next to YAML files and will be
 rebuilt automatically each time you change the source YAML.
 
 For one-time (re)build of your messages run:
 
     flutter packages pub run build_runner build
-   
+
 Import generated messages and use them:
 
     import 'packages:my_app/messages/foo.i18n.dart'
@@ -219,11 +223,11 @@ Import generated messages and use them:
     Foo m = Foo();
     return Text(m.bar);
     ...
-    
+
 ## How to use with AngularDart
 
 You are probably using `webdev` tool already, so you just need to add `i18n`
- as a dependency and **that's all**.          
+as a dependency and **that's all**.
 
 ## Custom pluralization
 
