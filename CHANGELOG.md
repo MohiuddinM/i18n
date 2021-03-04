@@ -1,3 +1,7 @@
+## 3.0.0
+
+- stable null safe
+
 ## 3.0.0-nullsafety
 
 - support null safety (by [joecks](https://github.com/MohiuddinM/i18n/pull/12))
