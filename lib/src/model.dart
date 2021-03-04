@@ -23,9 +23,9 @@ class ClassMeta {
     final result = ClassMeta(
       parent: this,
       isDefault: isDefault,
-      defaultObjectName: '${namePrefix}${defaultObjectName}',
+      defaultObjectName: '$namePrefix$defaultObjectName',
       defaultFileName: defaultFileName,
-      objectName: '${namePrefix}${objectName}',
+      objectName: '$namePrefix$objectName',
       localeName: localeName,
       languageCode: languageCode,
     );

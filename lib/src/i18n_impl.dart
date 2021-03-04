@@ -113,9 +113,9 @@ ClassMeta generateMessageObjectName(String fileName) {
         throw Exception(
             'Wrong country code "$countryCode" in file name "$fileName". Country code must match $twoCharsUpper');
       }
-      localeName = '${languageCode}_${countryCode}';
+      localeName = '${languageCode}_$countryCode';
     }
-    objectName = '${defaultObjectName}_${localeName}';
+    objectName = '${defaultObjectName}_$localeName';
     return ClassMeta(
       languageCode: languageCode,
       objectName: objectName,
@@ -154,13 +154,13 @@ void renderTodoItem(TodoItem todo, StringBuffer output) {
       final prefix = _firstCharUpper(k);
       final child = meta.nest(prefix);
       output.writeln(
-          '\t${child.objectName.convertName()} get ${k} => ${child.objectName.convertName()}(this);');
+          '\t${child.objectName.convertName()} get $k => ${child.objectName.convertName()}(this);');
     } else {
       if (k.contains('(')) {
         // function
-        output.writeln('\tString ${k} => """${v}""";');
+        output.writeln('\tString $k => """$v""";');
       } else {
-        output.writeln('\tString get ${k} => """${v}""";');
+        output.writeln('\tString get $k => """$v""";');
       }
     }
   });
