@@ -1,3 +1,7 @@
+## 3.0.1
+
+- minor change
+
 ## 3.0.0
 
 - stable null safe
