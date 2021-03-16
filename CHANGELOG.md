@@ -1,3 +1,7 @@
+## 3.0.2
+
+- updated build package
+
 ## 3.0.1
 
 - minor change
