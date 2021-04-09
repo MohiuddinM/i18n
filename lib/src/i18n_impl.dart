@@ -137,6 +137,9 @@ void renderTodoItem(TodoItem todo, StringBuffer output) {
         'class ${meta.objectName.convertName()} extends ${meta.defaultObjectName} {');
   }
 
+  output.writeln('String get locale => "${meta.localeName}";');
+  output.writeln('String get languageCode => "${meta.languageCode}";');
+
   var parent = meta.parent;
   if (parent == null) {
     output.writeln('\tconst ${meta.objectName.convertName()}();');
