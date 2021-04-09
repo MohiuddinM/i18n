@@ -1,3 +1,7 @@
+## 3.1.0
+
+- add locale and language code to generated classes
+
 ## 3.0.2
 
 - updated build package
