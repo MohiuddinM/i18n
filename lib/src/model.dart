@@ -1,7 +1,7 @@
 part of i18n;
 
-class ClassMeta {
-  final ClassMeta? parent;
+class Metadata {
+  final Metadata? parent;
   final bool isDefault;
   final String defaultObjectName;
   final String? defaultFileName;
@@ -9,7 +9,7 @@ class ClassMeta {
   final String localeName;
   final String languageCode;
 
-  ClassMeta({
+  Metadata({
     this.parent,
     required this.isDefault,
     required this.defaultObjectName,
@@ -19,8 +19,8 @@ class ClassMeta {
     required this.languageCode,
   });
 
-  ClassMeta nest(String namePrefix) {
-    final result = ClassMeta(
+  Metadata nest(String namePrefix) {
+    final result = Metadata(
       parent: this,
       isDefault: isDefault,
       defaultObjectName: '$namePrefix$defaultObjectName',
@@ -33,9 +33,9 @@ class ClassMeta {
   }
 }
 
-class TodoItem {
-  ClassMeta meta;
+class Translation {
+  Metadata metadata;
   YamlMap content;
 
-  TodoItem(this.meta, this.content);
+  Translation(this.metadata, this.content);
 }

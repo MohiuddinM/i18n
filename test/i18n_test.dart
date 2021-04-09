@@ -64,7 +64,7 @@ void main() {
 
   group('Message building', () {
     test('Todo list', () {
-      final root = ClassMeta(
+      final root = Metadata(
           objectName: 'Test',
           defaultObjectName: 'Test',
           localeName: 'en',
@@ -72,7 +72,7 @@ void main() {
           languageCode: 'en',
           defaultFileName: '');
 
-      final todoList = <TodoItem>[];
+      final todoList = <Translation>[];
       var yaml = 'foo:\n'
           '  subfoo: subbar\n'
           '  subfoo2: subbar2\n'
@@ -81,18 +81,18 @@ void main() {
           '  status:\n'
           '    name: not\n';
 
-      prepareTodoList(todoList, loadYaml(yaml), root);
+      prepareTranslationList(todoList, loadYaml(yaml), root);
       todoList.sort((a, b) {
-        return a.meta.objectName.compareTo(b.meta.objectName);
+        return a.metadata.objectName.compareTo(b.metadata.objectName);
       });
       expect(todoList.length, equals(4));
-      expect(todoList[0].meta.objectName, equals('FooTest'));
-      expect(todoList[1].meta.objectName, equals('OrTest'));
-      expect(todoList[2].meta.objectName, equals('StatusOrTest'));
-      expect(todoList[2].meta.parent, equals(todoList[1].meta));
-      expect(todoList[2].meta.parent?.parent, equals(todoList[3].meta));
-      expect(todoList[3].meta.objectName, equals('Test'));
-      expect(todoList[3].meta.parent, isNull);
+      expect(todoList[0].metadata.objectName, equals('FooTest'));
+      expect(todoList[1].metadata.objectName, equals('OrTest'));
+      expect(todoList[2].metadata.objectName, equals('StatusOrTest'));
+      expect(todoList[2].metadata.parent, equals(todoList[1].metadata));
+      expect(todoList[2].metadata.parent?.parent, equals(todoList[3].metadata));
+      expect(todoList[3].metadata.objectName, equals('Test'));
+      expect(todoList[3].metadata.parent, isNull);
     });
   });
 }

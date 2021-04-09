@@ -27,12 +27,12 @@ extension FirstUpper on String {
   }
 }
 
-String generateDartContentFromYaml(ClassMeta meta, String yamlContent) {
+String generateDartContentFromYaml(Metadata meta, String yamlContent) {
   final messages = loadYaml(yamlContent);
 
-  final todoList = <TodoItem>[];
+  final translations = <Translation>[];
 
-  prepareTodoList(todoList, messages, meta);
+  prepareTranslationList(translations, messages, meta);
 
   final output = StringBuffer();
 
@@ -59,15 +59,15 @@ String generateDartContentFromYaml(ClassMeta meta, String yamlContent) {
       '\ti18n.cardinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
   output.writeln('');
 
-  for (var todo in todoList) {
-    renderTodoItem(todo, output);
+  for (final translation in translations) {
+    renderTranslation(translation, output);
     output.writeln('');
   }
 
   return output.toString();
 }
 
-ClassMeta generateMessageObjectName(String fileName) {
+Metadata generateMessageObjectName(String fileName) {
   final name = fileName.replaceAll('.i18n.yaml', '');
 
   final nameParts = name.split('_');
@@ -75,7 +75,7 @@ ClassMeta generateMessageObjectName(String fileName) {
     throw Exception(_renderFileNameError(name));
   }
 
-  var defaultObjectName = _firstCharUpper(nameParts[0]);
+  var defaultObjectName = nameParts[0].firstUpper();
   var objectName = defaultObjectName;
   String? defaultFileName;
   var isDefault = true;
@@ -83,7 +83,7 @@ ClassMeta generateMessageObjectName(String fileName) {
   var localeName = 'en';
 
   if (nameParts.length == 1) {
-    return ClassMeta(
+    return Metadata(
       languageCode: languageCode,
       objectName: objectName,
       defaultObjectName: defaultObjectName,
@@ -116,7 +116,7 @@ ClassMeta generateMessageObjectName(String fileName) {
       localeName = '${languageCode}_$countryCode';
     }
     objectName = '${defaultObjectName}_$localeName';
-    return ClassMeta(
+    return Metadata(
       languageCode: languageCode,
       objectName: objectName,
       defaultObjectName: defaultObjectName,
@@ -127,9 +127,9 @@ ClassMeta generateMessageObjectName(String fileName) {
   }
 }
 
-void renderTodoItem(TodoItem todo, StringBuffer output) {
-  final meta = todo.meta;
-  final content = todo.content;
+void renderTranslation(Translation translation, StringBuffer output) {
+  final meta = translation.metadata;
+  final content = translation.content;
   if (meta.isDefault) {
     output.writeln('class ${meta.objectName} {');
   } else {
@@ -152,9 +152,10 @@ void renderTodoItem(TodoItem todo, StringBuffer output) {
           '\tconst ${meta.objectName.convertName()}(this._parent):super(_parent);');
     }
   }
-  content.forEach((k, v) {
+
+  content.cast<String, dynamic>().forEach((k, v) {
     if (v is YamlMap) {
-      final prefix = _firstCharUpper(k);
+      final prefix = k.firstUpper();
       final child = meta.nest(prefix);
       output.writeln(
           '\t${child.objectName.convertName()} get $k => ${child.objectName.convertName()}(this);');
@@ -170,21 +171,20 @@ void renderTodoItem(TodoItem todo, StringBuffer output) {
   output.writeln('}');
 }
 
-void prepareTodoList(
-    List<TodoItem> todoList, YamlMap messages, ClassMeta name) {
-  final todo = TodoItem(name, messages);
-  todoList.add(todo);
+void prepareTranslationList(
+  List<Translation> translations,
+  YamlMap messages,
+  Metadata name,
+) {
+  final translation = Translation(name, messages);
+  translations.add(translation);
 
-  messages.forEach((k, v) {
+  messages.cast<String, dynamic>().forEach((k, v) {
     if (v is YamlMap) {
-      final prefix = _firstCharUpper(k);
-      prepareTodoList(todoList, v, name.nest(prefix));
+      final prefix = k.firstUpper();
+      prepareTranslationList(translations, v, name.nest(prefix));
     }
   });
-}
-
-String _firstCharUpper(String s) {
-  return s.replaceRange(0, 1, s[0].toUpperCase());
 }
 
 String _renderFileNameError(String name) {
