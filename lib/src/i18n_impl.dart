@@ -25,6 +25,10 @@ extension FirstUpper on String {
   String firstUpper() {
     return substring(0, 1).toUpperCase() + substring(1);
   }
+
+  String firstLower() {
+    return substring(0, 1).toLowerCase() + substring(1);
+  }
 }
 
 String generateDartContentFromYaml(Metadata meta, String yamlContent) {
@@ -41,12 +45,9 @@ String generateDartContentFromYaml(Metadata meta, String yamlContent) {
   if (meta.defaultFileName != null) {
     output.writeln("import '${meta.defaultFileName}';");
   }
-  // output.writeln('');
-  output.writeln('String get _languageCode => \'${meta.languageCode}\';');
-  // output.writeln('String get _localeName => \'${meta.localeName}\';');
-  // output.writeln('');
+  output.writeln('\tString get _languageCode => \'${meta.languageCode}\';');
   output.writeln(
-      'String _plural(int count, {String? zero, String? one, String? two, String?few, String? many, String? other}) =>');
+      '\tString _plural(int count, {String? zero, String? one, String? two, String?few, String? many, String? other}) =>');
   output.writeln(
       '\ti18n.plural(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
   output.writeln(
@@ -63,6 +64,12 @@ String generateDartContentFromYaml(Metadata meta, String yamlContent) {
     renderTranslation(translation, output);
     output.writeln('');
   }
+
+  output.writeln();
+  output.writeln(
+      'Map<String, String> get ${meta.objectName.convertName().firstLower()}Map => {');
+  renderMapEntries(messages, output, '');
+  output.writeln('};');
 
   return output.toString();
 }
@@ -183,6 +190,23 @@ void prepareTranslationList(
     if (v is YamlMap) {
       final prefix = k.firstUpper();
       prepareTranslationList(translations, v, name.nest(prefix));
+    }
+  });
+}
+
+void renderMapEntries(YamlMap messages, StringBuffer output, String prefix) {
+  messages.cast<String, dynamic>().forEach((k, v) {
+    if (v is YamlMap) {
+      if (prefix == '') {
+        renderMapEntries(v, output, '$k.');
+      } else {
+        renderMapEntries(v, output, '$prefix$k.');
+      }
+    } else {
+      // not a function
+      if (!k.contains('(')) {
+        output.writeln('\t"""$prefix$k""": """$v""",');
+      }
     }
   });
 }
