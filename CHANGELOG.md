@@ -1,3 +1,7 @@
+## 3.2.0
+
+- export translations as a static map (by [marcin-jelenski](https://github.com/MohiuddinM/i18n/pull/15))
+
 ## 3.1.0
 
 - add locale and language code to generated classes
