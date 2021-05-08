@@ -29,6 +29,24 @@ extension FirstUpper on String {
   String firstLower() {
     return substring(0, 1).toLowerCase() + substring(1);
   }
+
+  bool get containsReference {
+    final i = indexOf('\$');
+
+    if (i == 0) {
+      return true;
+    }
+
+    if (i == -1) {
+      return false;
+    }
+
+    if (substring(i, i + 1) != '\\') {
+      return true;
+    }
+
+    return false;
+  }
 }
 
 String generateDartContentFromYaml(Metadata meta, String yamlContent) {
@@ -202,9 +220,8 @@ void renderMapEntries(YamlMap messages, StringBuffer output, String prefix) {
       } else {
         renderMapEntries(v, output, '$prefix$k.');
       }
-    } else {
-      // not a function
-      if (!k.contains('(')) {
+    } else if (v is String) {
+      if (!v.containsReference) {
         output.writeln('\t"""$prefix$k""": """$v""",');
       }
     }
