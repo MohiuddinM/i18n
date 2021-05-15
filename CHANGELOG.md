@@ -1,3 +1,7 @@
+## 3.3.1
+
+- fix bug in message map generation
+
 ## 3.3.0
 
 - update packages
