@@ -1,3 +1,7 @@
+## 3.3.2
+
+- add languageCode and locale only to top class
+
 ## 3.3.1
 
 - fix bug in message map generation
