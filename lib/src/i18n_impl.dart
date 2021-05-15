@@ -162,12 +162,11 @@ void renderTranslation(Translation translation, StringBuffer output) {
         'class ${meta.objectName.convertName()} extends ${meta.defaultObjectName} {');
   }
 
-  output.writeln('String get locale => "${meta.localeName}";');
-  output.writeln('String get languageCode => "${meta.languageCode}";');
-
   var parent = meta.parent;
   if (parent == null) {
     output.writeln('\tconst ${meta.objectName.convertName()}();');
+    output.writeln('\tString get locale => "${meta.localeName}";');
+    output.writeln('\tString get languageCode => "${meta.languageCode}";');
   } else {
     output.writeln('\tfinal ${parent.objectName.convertName()} _parent;');
     if (meta.isDefault) {
