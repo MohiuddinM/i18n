@@ -1,3 +1,7 @@
+## 3.3.1
+
+- Emit formatted Dart sources
+
 ## 3.3.0
 
 - update packages
