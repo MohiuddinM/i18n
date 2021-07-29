@@ -1,6 +1,6 @@
 ## 3.4.0
 
-- Emit formatted Dart sources (by [simolus3](https://github.com/MohiuddinM/i18n/pull/19))
+- format generated files (by [simolus3](https://github.com/MohiuddinM/i18n/pull/19))
 
 ## 3.3.2
 
