@@ -4,6 +4,7 @@
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:build/build.dart';
+import 'package:dart_style/dart_style.dart';
 import 'package:i18n/src/i18n_impl.dart';
 
 Builder yamlBasedBuilder(BuilderOptions options) => YamlBasedBuilder();
@@ -19,6 +20,13 @@ class YamlBasedBuilder implements Builder {
 
     var objectName = generateMessageObjectName(inputId.pathSegments.last);
     var dartContent = generateDartContentFromYaml(objectName, contents);
+
+    try {
+      dartContent = DartFormatter().format(dartContent);
+    } on FormatterException {
+      log.warning(
+          'Could not format generated output, it might contain errors.');
+    }
 
     var copy = inputId.changeExtension('.dart');
 

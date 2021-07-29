@@ -1,3 +1,7 @@
+## 3.4.0
+
+- Emit formatted Dart sources (by [simolus3](https://github.com/MohiuddinM/i18n/pull/19))
+
 ## 3.3.2
 
 - add languageCode and locale only to top class
