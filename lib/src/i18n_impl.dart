@@ -65,7 +65,7 @@ String generateDartContentFromYaml(Metadata meta, String yamlContent) {
   }
   output.writeln('\tString get _languageCode => \'${meta.languageCode}\';');
   output.writeln(
-      '\tString _plural(int count, {String? zero, String? one, String? two, String?few, String? many, String? other}) =>');
+      '\tString _plural(int count, {String? zero, String? one, String? two, String? few, String? many, String? other}) =>');
   output.writeln(
       '\ti18n.plural(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
   output.writeln(
