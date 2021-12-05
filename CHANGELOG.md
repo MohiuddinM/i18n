@@ -1,3 +1,7 @@
+## 3.4.1
+
+- add analyzer exceptions (by [WilkoV](https://github.com/MohiuddinM/i18n/pull/21))
+
 ## 3.4.0
 
 - format generated files (by [simolus3](https://github.com/MohiuddinM/i18n/pull/19))
