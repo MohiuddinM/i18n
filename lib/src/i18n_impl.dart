@@ -59,6 +59,7 @@ String generateDartContentFromYaml(Metadata meta, String yamlContent) {
   final output = StringBuffer();
 
   output.writeln('// GENERATED FILE, do not edit!');
+  output.writeln('// ignore_for_file: unused_element, unused_field');
   output.writeln('import \'package:i18n/i18n.dart\' as i18n;');
   if (meta.defaultFileName != null) {
     output.writeln("import '${meta.defaultFileName}';");
