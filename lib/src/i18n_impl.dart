@@ -72,11 +72,11 @@ String generateDartContentFromYaml(Metadata meta, String yamlContent) {
   output.writeln(
       'String _ordinal(int count, {String? zero, String? one, String? two, String? few, String? many, String? other}) =>');
   output.writeln(
-      '\ti18n.ordinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
+      '\ti18n.ordinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many: many, other: other,);');
   output.writeln(
-      'String _cardinal(int count, {String? zero, String? one, String? two, String? few, String? many, String? other}) =>');
+      'String _cardinal(int count, {String? zero, String? one, String? two, String? few, String? many, String? other,}) =>');
   output.writeln(
-      '\ti18n.cardinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
+      '\ti18n.cardinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many: many, other: other,);');
   output.writeln('');
 
   for (final translation in translations) {
