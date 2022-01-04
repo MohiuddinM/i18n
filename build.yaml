@@ -1,6 +1,5 @@
 # Read about `build.yaml` at https://pub.dartlang.org/packages/build_config
 builders:
-
   yamlBasedBuilder:
     import: "package:i18n/builder.dart"
     builder_factories: ["yamlBasedBuilder"]
