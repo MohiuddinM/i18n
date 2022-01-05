@@ -1,12 +1,21 @@
 generic:
   ok: OK
-  done: ERLEDIGT
+  done: DONE
+
 invoice:
-  create: Rechnung erstellen
-  delete: Rechnung löschen
-  help: "Verwenden Sie diese Funktion,
-   um neue Rechnungen und Sachen zu generieren."
-  count(int cnt): "Du hast geschaffen $cnt ${_plural(cnt, one:'Rechnung', many:'Rechnungen')}."
+  create: Create invoice
+  delete: Delete invoice
+  price: "\\$300"
+  help: "Use this function
+  to generate new invoices and stuff.
+  Awesome!"
+  count(int cnt): "You have created $cnt ${_plural(cnt, one:'invoice', many:'invoices')}."
+
 apples:
-  _apples(int cnt): "${_plural(cnt, one:'Apfel', many:'Äpfel')}"
-  count(int cnt): "Du hast gegessen $cnt ${_apples(cnt)}."
+  _apples(int cnt): "${_plural(cnt, one:'apple', many:'apples')}"
+  count(int cnt): "You have eaten $cnt ${_apples(cnt)}."
+
+users:
+  welcome(String name): "Hello $name!"
+  logout: Logout
+  logoutPrompt: Are you sure you want to $logout?

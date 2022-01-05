@@ -6,19 +6,61 @@
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:i18n/src/i18n_impl.dart';
+import 'package:glob/glob.dart';
+import 'package:yaml/yaml.dart';
 
 Builder yamlBasedBuilder(BuilderOptions options) => YamlBasedBuilder();
+
+void collectAllKeys(YamlMap map, List<String> keys) {
+  map.cast<String, dynamic>().forEach((k, v) {
+    keys.add(k);
+
+    if (v is YamlMap) {
+      collectAllKeys(v, keys);
+    }
+  });
+}
+
+extension YamlMapX on YamlMap {
+  List<String> get allKeys {
+    final keys = <String>[];
+    collectAllKeys(this, keys);
+    return keys;
+  }
+}
 
 class YamlBasedBuilder implements Builder {
   @override
   Future build(BuildStep buildStep) async {
     // Each [buildStep] has a single input.
-    var inputId = buildStep.inputId;
+    final currentAsset = buildStep.inputId;
+    final contents = await buildStep.readAsString(currentAsset);
+    final currentMap = loadYaml(contents) as YamlMap;
+    final currentKeys = currentMap.allKeys;
+
+    final all = await buildStep.findAssets(Glob('**.i18n.yaml')).toList()
+      ..remove(currentAsset);
+
+    for (final a in all) {
+      var contents = await buildStep.readAsString(a);
+      final map = loadYaml(contents) as YamlMap;
+      final keys = map.allKeys;
+
+      if (currentKeys.length != keys.length) {
+        throw 'all language YAMLs must have equal length';
+      }
+
+      for (var i = 0; i < currentKeys.length; i++) {
+        if (currentKeys[i] != keys[i]) {
+          throw 'different keys were found for the same location ${keys[i]} [$a]';
+        }
+      }
+    }
+
 
     // Create a new target [AssetId] based on the old one.
-    var contents = await buildStep.readAsString(inputId);
 
-    var objectName = generateMessageObjectName(inputId.pathSegments.last);
+    var objectName = generateMessageObjectName(currentAsset.pathSegments.last);
     var dartContent = generateDartContentFromYaml(objectName, contents);
 
     try {
@@ -28,7 +70,7 @@ class YamlBasedBuilder implements Builder {
           'Could not format generated output, it might contain errors.');
     }
 
-    var copy = inputId.changeExtension('.dart');
+    var copy = currentAsset.changeExtension('.dart');
 
     // Write out the new asset.
     await buildStep.writeAsString(copy, dartContent);
