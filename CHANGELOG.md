@@ -1,3 +1,7 @@
+## 4.0.0-alpha.0
+
+- check inconsistency when building
+
 ## 3.4.1
 
 - add analyzer exceptions (by [WilkoV](https://github.com/MohiuddinM/i18n/pull/21))
