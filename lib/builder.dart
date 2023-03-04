@@ -2,11 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:i18n/src/i18n_impl.dart';
 import 'package:glob/glob.dart';
+import 'package:i18n/src/i18n_impl.dart';
 import 'package:yaml/yaml.dart';
 
 Builder yamlBasedBuilder(BuilderOptions options) => YamlBasedBuilder();
@@ -56,7 +55,6 @@ class YamlBasedBuilder implements Builder {
         }
       }
     }
-
 
     // Create a new target [AssetId] based on the old one.
 
