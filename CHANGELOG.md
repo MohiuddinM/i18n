@@ -1,3 +1,7 @@
+## 4.0.1
+
+- all translation files must contain all the keys at same location as en-us
+
 ## 4.0.0-alpha.0
 
 - check inconsistency when building
