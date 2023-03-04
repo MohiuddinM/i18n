@@ -5,72 +5,99 @@ import 'package:yaml/yaml.dart';
 
 void main() {
   group('Messages meta data', () {
-    testMeta('messages',
-        isDefault: true,
-        defaultObjectName: 'Messages',
-        objectName: 'Messages',
-        languageCode: 'en',
-        localeName: 'en');
-    testMeta('messages_de',
-        isDefault: false,
-        defaultObjectName: 'Messages',
-        objectName: 'Messages_de',
-        languageCode: 'de',
-        localeName: 'de');
+    testMeta(
+      'messages',
+      isDefault: true,
+      defaultObjectName: 'Messages',
+      objectName: 'Messages',
+      languageCode: 'en',
+      localeName: 'en',
+    );
+    testMeta(
+      'messages_de',
+      isDefault: false,
+      defaultObjectName: 'Messages',
+      objectName: 'Messages_de',
+      languageCode: 'de',
+      localeName: 'de',
+    );
 
-    testMeta('domainMessages',
-        isDefault: true,
-        defaultObjectName: 'DomainMessages',
-        objectName: 'DomainMessages',
-        languageCode: 'en',
-        localeName: 'en');
-    testMeta('domainMessages_de',
-        isDefault: false,
-        defaultObjectName: 'DomainMessages',
-        objectName: 'DomainMessages_de',
-        languageCode: 'de',
-        localeName: 'de');
-    testMeta('domainMessages_de_DE',
-        isDefault: false,
-        defaultObjectName: 'DomainMessages',
-        objectName: 'DomainMessages_de_DE',
-        languageCode: 'de',
-        localeName: 'de_DE');
+    testMeta(
+      'domainMessages',
+      isDefault: true,
+      defaultObjectName: 'DomainMessages',
+      objectName: 'DomainMessages',
+      languageCode: 'en',
+      localeName: 'en',
+    );
+    testMeta(
+      'domainMessages_de',
+      isDefault: false,
+      defaultObjectName: 'DomainMessages',
+      objectName: 'DomainMessages_de',
+      languageCode: 'de',
+      localeName: 'de',
+    );
+    testMeta(
+      'domainMessages_de_DE',
+      isDefault: false,
+      defaultObjectName: 'DomainMessages',
+      objectName: 'DomainMessages_de_DE',
+      languageCode: 'de',
+      localeName: 'de_DE',
+    );
   });
 
   group('Plurals', () {
     test('en', () {
-      expect(plural(1, 'en', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
-          equals('ONE!'));
-      expect(plural(2, 'en', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
-          equals('OTHER!'));
-      expect(plural(3, 'en', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
-          equals('OTHER!'));
-      expect(plural(10, 'en', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
-          equals('OTHER!'));
+      expect(
+        plural(1, 'en', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
+        equals('ONE!'),
+      );
+      expect(
+        plural(2, 'en', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
+        equals('OTHER!'),
+      );
+      expect(
+        plural(3, 'en', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
+        equals('OTHER!'),
+      );
+      expect(
+        plural(10, 'en', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
+        equals('OTHER!'),
+      );
     });
 
     test('cz', () {
-      expect(plural(1, 'cs', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
-          equals('ONE!'));
-      expect(plural(2, 'cs', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
-          equals('FEW!'));
-      expect(plural(3, 'cs', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
-          equals('FEW!'));
-      expect(plural(10, 'cs', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
-          equals('OTHER!'));
+      expect(
+        plural(1, 'cs', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
+        equals('ONE!'),
+      );
+      expect(
+        plural(2, 'cs', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
+        equals('FEW!'),
+      );
+      expect(
+        plural(3, 'cs', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
+        equals('FEW!'),
+      );
+      expect(
+        plural(10, 'cs', one: 'ONE!', few: 'FEW!', other: 'OTHER!'),
+        equals('OTHER!'),
+      );
     });
   });
 
   group('Message building', () {
     test('Todo list', () {
       final root = Metadata(
-          objectName: 'Test',
-          defaultObjectName: 'Test',
-          localeName: 'en',
-          isDefault: false,
-          languageCode: 'en',
-          defaultFileName: '');
+        objectName: 'Test',
+        defaultObjectName: 'Test',
+        localeName: 'en',
+        isDefault: false,
+        languageCode: 'en',
+        defaultFileName: '',
+      );
 
       final todoList = <Translation>[];
       var yaml = 'foo:\n'
