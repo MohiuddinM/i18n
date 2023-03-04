@@ -12,6 +12,7 @@ dependencies:
   dart_style: ^2.0.0
   yaml: ^3.0.0
   quick_log: ^5.0.0
+  glob: ^2.0.0
 
 dev_dependencies:
   pedantic: ^1.11.0
