@@ -20,16 +20,28 @@ extension StringX on String {
   }
 
   bool get containsReference {
-    final parts = split('\$');
+    final refs = split('\$')..removeLast();
 
-    if (parts.length == 1) {
+    if (refs.isEmpty) {
       return false;
     }
 
-    if (parts.length == 2) {
-      return !parts.first.endsWith(r'\');
+    final escapedRefs = refs.where((e) => e.endsWith(r'\'));
+
+    if (escapedRefs.isEmpty) {
+      return true;
     }
 
-    throw ArgumentError('can not contain multiple \$ signs');
+    if (escapedRefs.length == refs.length) {
+      return false;
+    }
+
+    if (escapedRefs.isNotEmpty && escapedRefs.length < refs.length) {
+      throw ArgumentError(
+        'A string can not mix both escaped and non-escaped \$ signs',
+      );
+    }
+
+    return true;
   }
 }
