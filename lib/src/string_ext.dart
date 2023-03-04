@@ -4,21 +4,19 @@ extension StringX on String {
 
     if (parts.length == 1) {
       return this;
-    } else if (parts.length == 2) {
-      return parts.first + parts.last.firstUpper();
-    } else if (parts.length == 3) {
-      return parts.first + parts[1].firstUpper() + parts.last.firstUpper();
-    } else {
-      throw ArgumentError();
     }
+
+    final buffer = StringBuffer(parts.first)
+      ..writeAll(parts.sublist(1).map((e) => e.firstUpper()));
+    return buffer.toString();
   }
 
   String firstUpper() {
-    return substring(0, 1).toUpperCase() + substring(1);
+    return this[0].toUpperCase() + substring(1);
   }
 
   String firstLower() {
-    return substring(0, 1).toLowerCase() + substring(1);
+    return this[0].toLowerCase() + substring(1);
   }
 
   bool get containsReference {
