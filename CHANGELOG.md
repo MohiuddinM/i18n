@@ -1,3 +1,7 @@
+## 4.0.2
+
+- throws argument errors if file names are invalid
+
 ## 4.0.1
 
 - all translation files must contain all the keys at same location as en-us
