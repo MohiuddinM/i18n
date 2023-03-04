@@ -34,8 +34,8 @@ void main() => group('StringX', () {
 
       test('convert name works if there are many _ in the name', () {
         expect(
-          'new_translation_message_en_us'.convertName(),
-          'newTranslationMessageEnUs',
+          () => 'translation_message_en_us'.convertName(),
+          throwsArgumentError,
         );
       });
     });

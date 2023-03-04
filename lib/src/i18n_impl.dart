@@ -58,7 +58,7 @@ Metadata generateMessageObjectName(String fileName) {
 
   final nameParts = name.split('_');
   if (nameParts.isEmpty) {
-    throw Exception(_renderFileNameError(name));
+    throw ArgumentError(_renderFileNameError(name));
   }
 
   var defaultObjectName = nameParts[0].firstUpper();
@@ -82,7 +82,7 @@ Metadata generateMessageObjectName(String fileName) {
     isDefault = false;
 
     if (nameParts.length > 3) {
-      throw Exception(_renderFileNameError(name));
+      throw ArgumentError(_renderFileNameError(name));
     }
     if (nameParts.length >= 2) {
       languageCode = nameParts[1];
@@ -189,5 +189,5 @@ void renderMapEntries(YamlMap messages, StringBuffer output, String prefix) {
 }
 
 String _renderFileNameError(String name) {
-  return 'Wrong file name: \'$name\'';
+  return 'File name can not contain more than 2 "_" characters: \'$name\'';
 }
