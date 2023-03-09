@@ -1,9 +1,10 @@
 extension StringX on String {
   String convertName() {
-    final parts = split('_');
+    final rep = filterHyphen().filterSpaces();
+    final parts = rep.split('_');
 
     if (parts.length == 1) {
-      return this;
+      return rep;
     }
 
     final buffer = StringBuffer(parts.first)
@@ -14,6 +15,25 @@ extension StringX on String {
         return e.firstUpper();
       }));
     return buffer.toString();
+  }
+
+  String filterHyphen() {
+    final parts = split('-');
+    final f = parts.reduce((value, element) => value + element.firstUpper());
+    return f;
+  }
+
+  String filterSpaces() {
+    final f = split('(');
+    final parts = f.removeAt(0).split(' ');
+    final converted =
+        parts.reduce((value, element) => value + element.firstUpper());
+
+    if (f.isEmpty) {
+      return converted;
+    }
+
+    return converted + '(' + f.join();
   }
 
   String firstUpper() {
