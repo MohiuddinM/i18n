@@ -37,10 +37,18 @@ extension StringX on String {
   }
 
   String firstUpper() {
+    if (isEmpty) {
+      return this;
+    }
+
     return this[0].toUpperCase() + substring(1);
   }
 
   String firstLower() {
+    if (isEmpty) {
+      return this;
+    }
+
     return this[0].toLowerCase() + substring(1);
   }
 
