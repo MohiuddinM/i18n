@@ -14,7 +14,7 @@ apples:
   _apples(int cnt): "${_plural(cnt, one:'Apfel', many:'Äpfel')}"
   count(int cnt): "Du hast gegessen $cnt ${_apples(cnt)}."
 
-users:
+users details:
   welcome(String name): "Hello $name!"
   logout: Abmelden
-  logoutPrompt: Are you sure you want to $logout?
+  logout-prompt: Are you sure you want to $logout?
