@@ -116,40 +116,41 @@ Metadata generateMessageObjectName(String fileName) {
 void renderTranslation(Translation translation, StringBuffer output) {
   final meta = translation.metadata;
   final content = translation.content;
+  final defaultClassName = meta.defaultObjectName.convertName();
+  final className = meta.objectName.convertName();
+  final parentClassName = meta.parent?.objectName.convertName();
+
   if (meta.isDefault) {
-    output.writeln('class ${meta.objectName} {');
+    output.writeln('class $className {');
   } else {
-    output.writeln(
-        'class ${meta.objectName.convertName()} extends ${meta.defaultObjectName} {');
+    output.writeln('class $className extends $defaultClassName {');
   }
 
-  var parent = meta.parent;
-  if (parent == null) {
-    output.writeln('\tconst ${meta.objectName.convertName()}();');
+  if (parentClassName == null) {
+    output.writeln('\tconst $className();');
     output.writeln('\tString get locale => "${meta.localeName}";');
     output.writeln('\tString get languageCode => "${meta.languageCode}";');
   } else {
-    output.writeln('\tfinal ${parent.objectName.convertName()} _parent;');
+    output.writeln('\tfinal $parentClassName _parent;');
     if (meta.isDefault) {
-      output.writeln('\tconst ${meta.objectName}(this._parent);');
+      output.writeln('\tconst $className(this._parent);');
     } else {
-      output.writeln(
-          '\tconst ${meta.objectName.convertName()}(this._parent):super(_parent);');
+      output.writeln('\tconst $className(this._parent):super(_parent);');
     }
   }
 
   content.cast<String, dynamic>().forEach((k, v) {
+    final keyName = k.filterSpaces().filterHyphen();
     if (v is YamlMap) {
-      final prefix = k.firstUpper();
-      final child = meta.nest(prefix);
-      output.writeln(
-          '\t${child.objectName.convertName()} get $k => ${child.objectName.convertName()}(this);');
+      final prefix = keyName.firstUpper();
+      final className = meta.nest(prefix).objectName.convertName();
+      output.writeln('\t$className get $keyName => $className(this);');
     } else {
       if (k.contains('(')) {
         // function
-        output.writeln('\tString $k => """$v""";');
+        output.writeln('\tString $keyName => """$v""";');
       } else {
-        output.writeln('\tString get $k => """$v""";');
+        output.writeln('\tString get $keyName => """$v""";');
       }
     }
   });
