@@ -1,3 +1,7 @@
+## 4.0.3
+
+- solve issue where having a space or dash in yaml key generates an error
+
 ## 4.0.2
 
 - throws argument errors if file names are invalid
