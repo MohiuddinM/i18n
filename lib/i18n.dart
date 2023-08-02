@@ -7,7 +7,9 @@ import 'src/ru.dart' as ru;
 /// count is never null.
 ///
 typedef CategoryResolver = QuantityCategory Function(
-    int count, QuantityType type);
+  int count,
+  QuantityType type,
+);
 
 enum QuantityCategory { zero, one, two, few, many, other }
 
@@ -30,8 +32,17 @@ String plural(
   String? many,
   String? other,
 }) {
-  return _resolvePlural(count, languageCode, QuantityType.cardinal,
-      zero: zero, one: one, two: two, few: few, many: many, other: other);
+  return _resolvePlural(
+    count,
+    languageCode,
+    QuantityType.cardinal,
+    zero: zero,
+    one: one,
+    two: two,
+    few: few,
+    many: many,
+    other: other,
+  );
 }
 
 ///
@@ -47,8 +58,17 @@ String cardinal(
   String? many,
   String? other,
 }) {
-  return _resolvePlural(count, languageCode, QuantityType.cardinal,
-      zero: zero, one: one, two: two, few: few, many: many, other: other);
+  return _resolvePlural(
+    count,
+    languageCode,
+    QuantityType.cardinal,
+    zero: zero,
+    one: one,
+    two: two,
+    few: few,
+    many: many,
+    other: other,
+  );
 }
 
 ///
@@ -64,8 +84,17 @@ String ordinal(
   String? many,
   String? other,
 }) {
-  return _resolvePlural(count, languageCode, QuantityType.ordinal,
-      zero: zero, one: one, two: two, few: few, many: many, other: other);
+  return _resolvePlural(
+    count,
+    languageCode,
+    QuantityType.ordinal,
+    zero: zero,
+    one: one,
+    two: two,
+    few: few,
+    many: many,
+    other: other,
+  );
 }
 
 Map<String, CategoryResolver> _resolverRegistry = {
@@ -87,36 +116,24 @@ String _resolvePlural(
 }) {
   final c = _resolveCategory(languageCode, count, type);
   many ??= other;
-  switch (c) {
-    case QuantityCategory.zero:
-      return _firstNotNull(zero, many);
-    case QuantityCategory.one:
-      return _firstNotNull(one, many);
-    case QuantityCategory.two:
-      return _firstNotNull(two, many);
-    case QuantityCategory.few:
-      return _firstNotNull(few, many);
-    case QuantityCategory.many:
-      return _firstNotNull(many, other);
-    case QuantityCategory.other:
-      return _firstNotNull(other, many);
-  }
+  return switch (c) {
+    QuantityCategory.zero => _firstNotNull(zero, many),
+    QuantityCategory.one => _firstNotNull(one, many),
+    QuantityCategory.two => _firstNotNull(two, many),
+    QuantityCategory.few => _firstNotNull(few, many),
+    QuantityCategory.many => _firstNotNull(many, other),
+    QuantityCategory.other => _firstNotNull(other, many),
+  };
 }
 
 QuantityCategory _defaultResolver(int count, QuantityType type) {
-  switch (count) {
-    case 0:
-      return QuantityCategory.zero;
-    case 1:
-      return QuantityCategory.one;
-    case 2:
-      return QuantityCategory.two;
-    case 3:
-      return QuantityCategory.few;
-    case 4:
-      return QuantityCategory.few;
-  }
-  return QuantityCategory.other;
+  return switch (count) {
+    0 => QuantityCategory.zero,
+    1 => QuantityCategory.one,
+    2 => QuantityCategory.two,
+    3 || 4 => QuantityCategory.few,
+    _ => QuantityCategory.other,
+  };
 }
 
 QuantityCategory _resolveCategory(
@@ -124,14 +141,10 @@ QuantityCategory _resolveCategory(
   int count,
   QuantityType type,
 ) {
-  CategoryResolver resolver;
-  resolver = _resolverRegistry[languageCode] ??= _defaultResolver;
-
+  final resolver = _resolverRegistry[languageCode] ?? _defaultResolver;
   return resolver(count, type);
 }
 
 String _firstNotNull(String? a, String? b) {
-  if (a != null) return a;
-  if (b != null) return b;
-  return '???';
+  return a ?? b ?? '???';
 }

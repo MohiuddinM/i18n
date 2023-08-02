@@ -2,9 +2,8 @@ library i18n;
 
 import 'package:yaml/yaml.dart';
 
+import 'metadata.dart';
 import 'string_ext.dart';
-
-part 'model.dart';
 
 Pattern twoCharsLower = RegExp('^[a-z]{2}\$');
 Pattern twoCharsUpper = RegExp('^[A-Z]{2}\$');
@@ -19,24 +18,34 @@ String generateDartContentFromYaml(Metadata meta, String yamlContent) {
   final output = StringBuffer();
 
   output.writeln('// GENERATED FILE, do not edit!');
-  output.writeln('// ignore_for_file: annotate_overrides, non_constant_identifier_names, prefer_single_quotes, unused_element, unused_field');
+  output.writeln(
+    '// ignore_for_file: annotate_overrides, non_constant_identifier_names, prefer_single_quotes, unused_element, unused_field',
+  );
   output.writeln('import \'package:i18n/i18n.dart\' as i18n;');
   if (meta.defaultFileName != null) {
     output.writeln("import '${meta.defaultFileName}';");
   }
-  output.writeln('\tString get _languageCode => \'${meta.languageCode}\';');
   output.writeln(
-      '\tString _plural(int count, {String? zero, String? one, String? two, String? few, String? many, String? other}) =>');
+    '\tString get _languageCode => \'${meta.languageCode}\';',
+  );
   output.writeln(
-      '\ti18n.plural(count, _languageCode, zero:zero, one:one, two:two, few:few, many:many, other:other);');
+    '\tString _plural(int count, {String? zero, String? one, String? two, String? few, String? many, String? other}) =>',
+  );
   output.writeln(
-      'String _ordinal(int count, {String? zero, String? one, String? two, String? few, String? many, String? other}) =>');
+    '\ti18n.plural(count, _languageCode, zero: zero, one: one, two: two, few: few, many: many, other: other);',
+  );
   output.writeln(
-      '\ti18n.ordinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many: many, other: other,);');
+    'String _ordinal(int count, {String? zero, String? one, String? two, String? few, String? many, String? other}) =>',
+  );
   output.writeln(
-      'String _cardinal(int count, {String? zero, String? one, String? two, String? few, String? many, String? other,}) =>');
+    '\ti18n.ordinal(count, _languageCode, zero: zero, one: one, two: two, few: few, many: many, other: other,);',
+  );
   output.writeln(
-      '\ti18n.cardinal(count, _languageCode, zero:zero, one:one, two:two, few:few, many: many, other: other,);');
+    'String _cardinal(int count, {String? zero, String? one, String? two, String? few, String? many, String? other,}) =>',
+  );
+  output.writeln(
+    '\ti18n.cardinal(count, _languageCode, zero: zero, one: one, two: two, few: few, many: many, other: other,);',
+  );
   output.writeln('');
 
   for (final translation in translations) {
@@ -88,7 +97,8 @@ Metadata generateMessageObjectName(String fileName) {
       languageCode = nameParts[1];
       if (twoCharsLower.allMatches(languageCode).length != 1) {
         throw Exception(
-            'Wrong language code "$languageCode" in file name "$fileName". Language code must match $twoCharsLower');
+          'Wrong language code "$languageCode" in file name "$fileName". Language code must match $twoCharsLower',
+        );
       }
       languageCode = languageCode;
       localeName = languageCode;
@@ -97,7 +107,8 @@ Metadata generateMessageObjectName(String fileName) {
       final countryCode = nameParts[2];
       if (twoCharsUpper.allMatches(countryCode).length != 1) {
         throw Exception(
-            'Wrong country code "$countryCode" in file name "$fileName". Country code must match $twoCharsUpper');
+          'Wrong country code "$countryCode" in file name "$fileName". Country code must match $twoCharsUpper',
+        );
       }
       localeName = '${languageCode}_$countryCode';
     }

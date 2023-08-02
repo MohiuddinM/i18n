@@ -1,4 +1,4 @@
-part of i18n;
+import 'package:yaml/yaml.dart';
 
 class Metadata {
   final Metadata? parent;
@@ -20,7 +20,7 @@ class Metadata {
   });
 
   Metadata nest(String namePrefix) {
-    final result = Metadata(
+    return Metadata(
       parent: this,
       isDefault: isDefault,
       defaultObjectName: '$namePrefix$defaultObjectName',
@@ -29,13 +29,12 @@ class Metadata {
       localeName: localeName,
       languageCode: languageCode,
     );
-    return result;
   }
 }
 
 class Translation {
-  Metadata metadata;
-  YamlMap content;
+  final Metadata metadata;
+  final YamlMap content;
 
   Translation(this.metadata, this.content);
 }

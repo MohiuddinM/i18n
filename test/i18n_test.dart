@@ -1,5 +1,6 @@
 import 'package:i18n/i18n.dart';
 import 'package:i18n/src/i18n_impl.dart';
+import 'package:i18n/src/metadata.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 
