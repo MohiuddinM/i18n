@@ -33,7 +33,7 @@ extension StringX on String {
       return converted;
     }
 
-    return converted + '(' + f.join();
+    return '$converted(${f.join()}';
   }
 
   String firstUpper() {
