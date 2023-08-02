@@ -1,3 +1,7 @@
+## 4.0.5
+
+- minor changes
+
 ## 4.0.4
 
 - add additional lint ignores (by [NotTsunami](https://github.com/MohiuddinM/i18n/pull/25))
