@@ -1,3 +1,7 @@
+## 4.0.4
+
+- add additional lint ignores (by [NotTsunami](https://github.com/MohiuddinM/i18n/pull/25))
+
 ## 4.0.3
 
 - solve issue where having a space or dash in yaml key generates an error
