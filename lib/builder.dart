@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:math';
+
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:glob/glob.dart';
@@ -31,44 +33,56 @@ extension YamlMapX on YamlMap {
 class YamlBasedBuilder implements Builder {
   @override
   Future build(BuildStep buildStep) async {
-    // Each [buildStep] has a single input.
-    final currentAsset = buildStep.inputId;
-    final contents = await buildStep.readAsString(currentAsset);
+    final currentFile = buildStep.inputId;
+    final contents = await buildStep.readAsString(currentFile);
     final currentMap = loadYaml(contents) as YamlMap;
     final currentKeys = currentMap.allKeys;
 
-    final all = await buildStep.findAssets(Glob('**.i18n.yaml')).toList()
-      ..remove(currentAsset);
+    final allFiles = await buildStep.findAssets(Glob('**.i18n.yaml')).toList();
+    final defaultFile = allFiles.firstWhere(
+      (e) => !e.uri.pathSegments.last.contains('_'),
+    );
 
-    for (final a in all) {
-      var contents = await buildStep.readAsString(a);
-      final map = loadYaml(contents) as YamlMap;
-      final keys = map.allKeys;
+    if (currentFile != defaultFile) {
+      final defaultFileContents = await buildStep.readAsString(defaultFile);
+      final defaultMap = loadYaml(defaultFileContents) as YamlMap;
+      final defaultKeys = defaultMap.allKeys;
+      final maxLength = max(currentKeys.length, defaultKeys.length);
 
-      if (currentKeys.length != keys.length) {
-        throw 'all language YAMLs must have equal length';
-      }
+      for (var i = 0; i < maxLength; i++) {
+        final currentKey = currentKeys.elementAtOrNull(i);
+        final defaultKey = defaultKeys.elementAtOrNull(i);
 
-      for (var i = 0; i < currentKeys.length; i++) {
-        if (currentKeys[i] != keys[i]) {
-          throw 'different keys were found for the same location ${keys[i]} [$a]';
+        if (currentKey == null) {
+          log.severe('key "$defaultKey" not found in file $defaultFile');
+        }
+
+        if (defaultKey == null) {
+          log.severe('key "$currentKey" not found in file $currentFile');
+        }
+
+        if (currentKey != defaultKey) {
+          log.severe(
+            'same location contains 2 different keys:'
+            '\n\t"$currentKey" in $currentFile'
+            '\n\t"$defaultKey" in $defaultFile',
+          );
         }
       }
     }
 
-    // Create a new target [AssetId] based on the old one.
-
-    var objectName = generateMessageObjectName(currentAsset.pathSegments.last);
+    final objectName = generateMessageObjectName(currentFile.pathSegments.last);
     var dartContent = generateDartContentFromYaml(objectName, contents);
 
     try {
       dartContent = DartFormatter().format(dartContent);
     } on FormatterException {
       log.warning(
-          'Could not format generated output, it might contain errors.');
+        'Could not format generated output, it might contain errors.',
+      );
     }
 
-    var copy = currentAsset.changeExtension('.dart');
+    var copy = currentFile.changeExtension('.dart');
 
     // Write out the new asset.
     await buildStep.writeAsString(copy, dartContent);
