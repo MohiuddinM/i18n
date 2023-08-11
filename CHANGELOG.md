@@ -1,3 +1,7 @@
+## 4.0.7
+
+- improve difference detection between translation files
+
 ## 4.0.6
 
 - fix analysis
