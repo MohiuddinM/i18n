@@ -29,13 +29,13 @@ String generateDartContentFromYaml(Metadata meta, String yamlContent) {
     '\tString get _languageCode => \'${meta.languageCode}\';',
   );
   output.writeln(
-    '\tString _plural(int count, {String? zero, String? one, String? two, String? few, String? many, String? other}) =>',
+    '\tString _plural(int count, {String? zero, String? one, String? two, String? few, String? many, String? other,}) =>',
   );
   output.writeln(
-    '\ti18n.plural(count, _languageCode, zero: zero, one: one, two: two, few: few, many: many, other: other);',
+    '\ti18n.plural(count, _languageCode, zero: zero, one: one, two: two, few: few, many: many, other: other,);',
   );
   output.writeln(
-    'String _ordinal(int count, {String? zero, String? one, String? two, String? few, String? many, String? other}) =>',
+    'String _ordinal(int count, {String? zero, String? one, String? two, String? few, String? many, String? other,}) =>',
   );
   output.writeln(
     '\ti18n.ordinal(count, _languageCode, zero: zero, one: one, two: two, few: few, many: many, other: other,);',
