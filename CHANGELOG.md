@@ -1,3 +1,7 @@
+## 4.0.8
+
+- fix lint warnings (by [NotTsunami](https://github.com/MohiuddinM/i18n/pull/26))
+
 ## 4.0.7
 
 - improve difference detection between translation files
