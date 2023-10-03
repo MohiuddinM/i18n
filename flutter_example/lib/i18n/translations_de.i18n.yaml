@@ -1,0 +1,20 @@
+generic:
+  ok: OK
+  done: ERLEDIGT
+
+invoice:
+  create: Rechnung erstellen
+  delete: Rechnung löschen
+  price: "\\€300"
+  help: "Verwenden Sie diese Funktion,
+   um neue Rechnungen und Sachen zu generieren."
+  count(int cnt): "Du hast geschaffen $cnt ${_plural(cnt, one:'Rechnung', many:'Rechnungen')}."
+
+apples:
+  _apples(int cnt): "${_plural(cnt, one:'Apfel', many:'Äpfel')}"
+  count(int cnt): "Du hast gegessen $cnt ${_apples(cnt)}."
+
+users details:
+  welcome(String name): "Hello $name!"
+  logout: Abmelden
+  logout-prompt: Are you sure you want to $logout?
