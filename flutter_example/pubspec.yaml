@@ -10,13 +10,13 @@ dependencies:
     sdk: flutter
   intl:
   shared_preferences:
+  i18n:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
-  i18n:
   build_runner:
 
 flutter:
