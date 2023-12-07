@@ -46,6 +46,12 @@ String generateDartContentFromYaml(Metadata meta, String yamlContent) {
   output.writeln(
     '\ti18n.cardinal(count, _languageCode, zero: zero, one: one, two: two, few: few, many: many, other: other,);',
   );
+  output.writeln(
+    'String _select(String key, Map<String, String> cases, {String? other,}) =>',
+  );
+  output.writeln(
+    '\ti18n.select(key, cases, other: other);',
+  );
   output.writeln('');
 
   for (final translation in translations) {

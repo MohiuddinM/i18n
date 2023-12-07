@@ -97,6 +97,17 @@ String ordinal(
   );
 }
 
+///
+/// Selects one of the cases based on the key.
+///
+String select(
+  String key,
+  Map<String, String> cases, {
+  String? other,
+}) {
+  return _firstNotNull(cases[key], other);
+}
+
 Map<String, CategoryResolver> _resolverRegistry = {
   'en': en.quantityResolver,
   'cs': cs.quantityResolver,
