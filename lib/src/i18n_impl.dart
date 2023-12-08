@@ -157,15 +157,38 @@ void renderTranslation(Translation translation, StringBuffer output) {
       final className = meta.nest(prefix).objectName.convertName();
       output.writeln('\t$className get $keyName => $className(this);');
     } else {
+      final comment = _wrapWithComments(v);
       if (k.contains('(')) {
         // function
-        output.writeln('\tString $keyName => """$v""";');
+        output.writeln('\t$comment\n\tString $keyName => """$v""";');
       } else {
-        output.writeln('\tString get $keyName => """$v""";');
+        output.writeln('\t$comment\n\tString get $keyName => """$v""";');
       }
     }
   });
   output.writeln('}');
+}
+
+String _wrapWithComments(dynamic obj) {
+  final text = obj?.toString();
+  if (text == null || text.isEmpty) {
+    return '';
+  }
+  final lines = text.split('\n');
+  final output = StringBuffer();
+  final isMultiline = lines.length > 1;
+  if (isMultiline) {
+    lines.insert(0, '"""');
+    lines.add('"""');
+    output.writeln('/// ```dart');
+    for (final line in lines) {
+      output.writeln('/// $line');
+    }
+    output.writeln('/// ```');
+  } else {
+    output.writeln('/// `$text`');
+  }
+  return output.toString().trimRight();
 }
 
 void prepareTranslationList(
@@ -203,3 +226,4 @@ void renderMapEntries(YamlMap messages, StringBuffer output, String prefix) {
 String _renderFileNameError(String name) {
   return 'File name can not contain more than 2 "_" characters: \'$name\'';
 }
+
