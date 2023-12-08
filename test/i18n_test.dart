@@ -89,6 +89,29 @@ void main() {
     });
   });
 
+  group('Select', () {
+    test('With other', () {
+      expect(
+        select('foo', {'foo': 'FOO!'}, other: 'OTHER!'),
+        equals('FOO!'),
+      );
+      expect(
+        select('bar', {'foo': 'FOO!'}, other: 'OTHER!'),
+        equals('OTHER!'),
+      );
+    });
+    test('Without other', () {
+      expect(
+        select('foo', {'foo': 'FOO!'}),
+        equals('FOO!'),
+      );
+      expect(
+        select('bar', {'foo': 'FOO!'}),
+        equals('???'),
+      );
+    });
+  });
+
   group('Message building', () {
     test('Todo list', () {
       final root = Metadata(
@@ -150,3 +173,4 @@ void testMeta(
     expect(meta.languageCode, equals(languageCode));
   });
 }
+
