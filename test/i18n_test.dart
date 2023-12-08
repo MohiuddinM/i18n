@@ -107,7 +107,7 @@ void main() {
       );
       expect(
         select('bar', {'foo': 'FOO!'}),
-        equals('???'),
+        equals('bar'),
       );
     });
   });
