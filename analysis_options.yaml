@@ -4,4 +4,4 @@ analyzer:
   exclude:
     - example/**.i18n.dart
     - lib/**.i18n.dart
-    - lib/flutter_example/**
+    - flutter_example
