@@ -1,5 +1,7 @@
 library i18n;
 
+import 'dart:convert';
+
 import 'package:yaml/yaml.dart';
 
 import 'metadata.dart';
@@ -157,6 +159,8 @@ void renderTranslation(Translation translation, StringBuffer output) {
       final className = meta.nest(prefix).objectName.convertName();
       output.writeln('\t$className get $keyName => $className(this);');
     } else {
+      final comment = _wrapWithComments(v);
+      output.writeln(comment);
       if (k.contains('(')) {
         // function
         output.writeln('\tString $keyName => """$v""";');
@@ -166,6 +170,28 @@ void renderTranslation(Translation translation, StringBuffer output) {
     }
   });
   output.writeln('}');
+}
+
+String _wrapWithComments(dynamic obj) {
+  final text = obj?.toString();
+  if (text == null || text.isEmpty) {
+    return '';
+  }
+  final lines = LineSplitter().convert(text);
+  final output = StringBuffer();
+  final isMultiline = lines.length > 1;
+  output.writeln('/// ```dart');
+  if (isMultiline) {
+    output.writeln('/// """');
+    for (final line in lines) {
+      output.writeln('/// $line');
+    }
+    output.writeln('/// """');
+  } else {
+    output.writeln('/// "$text"');
+  }
+  output.writeln('/// ```');
+  return output.toString().trimRight();
 }
 
 void prepareTranslationList(
@@ -203,3 +229,4 @@ void renderMapEntries(YamlMap messages, StringBuffer output, String prefix) {
 String _renderFileNameError(String name) {
   return 'File name can not contain more than 2 "_" characters: \'$name\'';
 }
+
