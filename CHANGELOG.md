@@ -1,3 +1,7 @@
+## 4.1.0
+
+- add doc comments for generated keys (by [chenasraf](https://github.com/MohiuddinM/i18n/pull/29))
+
 ## 4.0.8
 
 - fix lint warnings (by [NotTsunami](https://github.com/MohiuddinM/i18n/pull/26))

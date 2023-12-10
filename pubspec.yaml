@@ -1,6 +1,6 @@
 name: i18n
 description: Simple i18n solution for dart and flutter. Uses code generation to generate translations as dart classes. Efficient and works with autocomplete!
-version: 4.0.8
+version: 4.1.0
 homepage: https://github.com/MohiuddinM/i18n
 
 environment:
