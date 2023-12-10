@@ -1,5 +1,7 @@
 library i18n;
 
+import 'dart:convert';
+
 import 'package:yaml/yaml.dart';
 
 import 'metadata.dart';
@@ -158,11 +160,12 @@ void renderTranslation(Translation translation, StringBuffer output) {
       output.writeln('\t$className get $keyName => $className(this);');
     } else {
       final comment = _wrapWithComments(v);
+      output.writeln(comment);
       if (k.contains('(')) {
         // function
-        output.writeln('\t$comment\n\tString $keyName => """$v""";');
+        output.writeln('\tString $keyName => """$v""";');
       } else {
-        output.writeln('\t$comment\n\tString get $keyName => """$v""";');
+        output.writeln('\tString get $keyName => """$v""";');
       }
     }
   });
@@ -174,20 +177,20 @@ String _wrapWithComments(dynamic obj) {
   if (text == null || text.isEmpty) {
     return '';
   }
-  final lines = text.split('\n');
+  final lines = LineSplitter().convert(text);
   final output = StringBuffer();
   final isMultiline = lines.length > 1;
+  output.writeln('/// ```dart');
   if (isMultiline) {
-    lines.insert(0, '"""');
-    lines.add('"""');
-    output.writeln('/// ```dart');
+    output.writeln('/// """');
     for (final line in lines) {
       output.writeln('/// $line');
     }
-    output.writeln('/// ```');
+    output.writeln('/// """');
   } else {
-    output.writeln('/// `$text`');
+    output.writeln('/// "$text"');
   }
+  output.writeln('/// ```');
   return output.toString().trimRight();
 }
 
