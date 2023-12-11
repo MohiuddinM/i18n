@@ -21,7 +21,7 @@ String generateDartContentFromYaml(Metadata meta, String yamlContent) {
 
   output.writeln('// GENERATED FILE, do not edit!');
   output.writeln(
-    '// ignore_for_file: annotate_overrides, non_constant_identifier_names, prefer_single_quotes, unused_element, unused_field',
+    '// ignore_for_file: annotate_overrides, non_constant_identifier_names, prefer_single_quotes, unused_element, unused_field, unnecessary_string_interpolations',
   );
   output.writeln('import \'package:i18n/i18n.dart\' as i18n;');
   if (meta.defaultFileName != null) {
@@ -47,6 +47,12 @@ String generateDartContentFromYaml(Metadata meta, String yamlContent) {
   );
   output.writeln(
     '\ti18n.cardinal(count, _languageCode, zero: zero, one: one, two: two, few: few, many: many, other: other,);',
+  );
+  output.writeln(
+    'String _select(String key, Map<String, String> cases, {String? other,}) =>',
+  );
+  output.writeln(
+    '\ti18n.select(key, cases, other: other);',
   );
   output.writeln('');
 
