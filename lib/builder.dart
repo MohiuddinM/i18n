@@ -40,7 +40,11 @@ class YamlBasedBuilder implements Builder {
 
     final allFiles = await buildStep.findAssets(Glob('**.i18n.yaml')).toList();
     final defaultFile = allFiles.firstWhere(
-      (e) => !e.uri.pathSegments.last.contains('_'),
+      (e) {
+        final name = e.uri.pathSegments.last.replaceAll(".i18n.yaml", "");
+
+        return !name.contains('_') && currentFile.pathSegments.last.replaceAll(".i18n.yaml", "").startsWith(name);
+      },
     );
 
     if (currentFile != defaultFile) {

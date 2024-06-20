@@ -1,3 +1,7 @@
+## 4.1.1
+
+- add multi base file support (by [shovelmn12](https://github.com/MohiuddinM/i18n/pull/30))
+
 ## 4.1.0
 
 - add doc comments for generated keys (by [chenasraf](https://github.com/MohiuddinM/i18n/pull/29))
