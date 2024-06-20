@@ -38,12 +38,16 @@ class YamlBasedBuilder implements Builder {
     final currentMap = loadYaml(contents) as YamlMap;
     final currentKeys = currentMap.allKeys;
 
-    final allFiles = await buildStep.findAssets(Glob('**.i18n.yaml')).toList();
+    final pattern = Glob('**.i18n.yaml');
+    final allFiles = await buildStep.findAssets(pattern).toList();
+    final currentFileName = currentFile.pathSegments.last.replaceAll(
+      '.i18n.yaml',
+      '',
+    );
     final defaultFile = allFiles.firstWhere(
       (e) {
-        final name = e.uri.pathSegments.last.replaceAll(".i18n.yaml", "");
-
-        return !name.contains('_') && currentFile.pathSegments.last.replaceAll(".i18n.yaml", "").startsWith(name);
+        final name = e.uri.pathSegments.last.replaceAll('.i18n.yaml', '');
+        return !name.contains('_') && currentFileName.startsWith(name);
       },
     );
 
