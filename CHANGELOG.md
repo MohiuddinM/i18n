@@ -1,3 +1,7 @@
+## 4.2.0
+
+- upgrade deps
+
 ## 4.1.1
 
 - add multi base file support (by [shovelmn12](https://github.com/MohiuddinM/i18n/pull/30))
