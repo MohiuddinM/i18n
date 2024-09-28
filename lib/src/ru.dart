@@ -1,4 +1,4 @@
-import 'package:i18n/i18n.dart';
+import '../i18n.dart';
 
 ///
 /// Quantity category resolver for russian.

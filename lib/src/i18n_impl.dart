@@ -1,5 +1,3 @@
-library i18n;
-
 import 'dart:convert';
 
 import 'package:yaml/yaml.dart';
@@ -229,4 +227,3 @@ void renderMapEntries(YamlMap messages, StringBuffer output, String prefix) {
 String _renderFileNameError(String name) {
   return 'File name can not contain more than 2 "_" characters: \'$name\'';
 }
-
