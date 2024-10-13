@@ -1,9 +1,10 @@
 # i18n
 
 ![tests](https://github.com/MohiuddinM/i18n/workflows/test/badge.svg)
+[![pub package](https://img.shields.io/pub/v/i18n.svg)](https://pub.dev/packages/i18n)
 
-Simple internationalization package for Dart and Flutter. This package is a permanent fork of another
-internationalization package [https://github.com/fnx-io/i69n]. This package now supports hot reload and is tested on
+Simple internationalization package for Dart and Flutter. This package now supports hot reload and
+is tested on
 latest versions of Flutter.
 
 # Overview
