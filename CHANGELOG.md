@@ -1,3 +1,7 @@
+## 4.2.1
+
+- update readme
+
 ## 4.2.0
 
 - upgrade deps
