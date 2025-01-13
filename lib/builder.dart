@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:glob/glob.dart';
 import 'package:i18n/src/i18n_impl.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
 Builder yamlBasedBuilder(BuilderOptions options) => YamlBasedBuilder();
@@ -79,7 +81,9 @@ class YamlBasedBuilder implements Builder {
     var dartContent = generateDartContentFromYaml(objectName, contents);
 
     try {
-      dartContent = DartFormatter().format(dartContent);
+      var version = Platform.version;
+      dartContent = DartFormatter(languageVersion: Version.parse(version))
+          .format(dartContent);
     } on FormatterException {
       log.warning(
         'Could not format generated output, it might contain errors.',
