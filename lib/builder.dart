@@ -81,16 +81,16 @@ class YamlBasedBuilder implements Builder {
     var dartContent = generateDartContentFromYaml(objectName, contents);
 
     try {
-      var version = Platform.version;
-      dartContent = DartFormatter(languageVersion: Version.parse(version))
-          .format(dartContent);
+      final version = Platform.version;
+      final formatter = DartFormatter(languageVersion: Version.parse(version));
+      dartContent = formatter.format(dartContent);
     } on FormatterException {
       log.warning(
         'Could not format generated output, it might contain errors.',
       );
     }
 
-    var copy = currentFile.changeExtension('.dart');
+    final copy = currentFile.changeExtension('.dart');
 
     // Write out the new asset.
     await buildStep.writeAsString(copy, dartContent);
