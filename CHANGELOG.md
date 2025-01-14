@@ -1,3 +1,7 @@
+## 4.2.3
+
+- fix formatter
+
 ## 4.2.2
 
 - update dependencies
