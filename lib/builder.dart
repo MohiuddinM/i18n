@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:build/build.dart';
@@ -80,7 +81,11 @@ class YamlBasedBuilder implements Builder {
     var dartContent = generateDartContentFromYaml(objectName, contents);
 
     try {
-      dartContent = DartFormatter(languageVersion: Version(3, 6, 0)).format(dartContent);
+      final versionRegexp = RegExp(r"\d+\.\d+\.\d+");
+      final match = versionRegexp.firstMatch(Platform.version)!;
+      dartContent = DartFormatter(
+          languageVersion: Version.parse(Platform.version.substring(match.start, match.end))
+      ).format(dartContent);
     } on FormatterException {
       log.warning(
         'Could not format generated output, it might contain errors.',
