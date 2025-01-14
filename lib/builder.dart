@@ -92,7 +92,7 @@ class YamlBasedBuilder implements Builder {
       );
     }
 
-    var copy = currentFile.changeExtension('.dart');
+    final copy = currentFile.changeExtension('.dart');
 
     // Write out the new asset.
     await buildStep.writeAsString(copy, dartContent);
