@@ -81,7 +81,11 @@ class YamlBasedBuilder implements Builder {
     var dartContent = generateDartContentFromYaml(objectName, contents);
 
     try {
-      final version = Platform.version.substring(0, 5);
+      final versionText = Platform.version;
+      final version = versionText.substring(
+        0,
+        versionText.indexOf(' '),
+      );
       final formatter = DartFormatter(languageVersion: Version.parse(version));
       dartContent = formatter.format(dartContent);
     } on FormatterException {
