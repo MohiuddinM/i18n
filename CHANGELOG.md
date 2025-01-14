@@ -1,3 +1,7 @@
+## 4.2.4
+
+- fix double digit version parsing for formatter
+
 ## 4.2.3
 
 - fix formatter
