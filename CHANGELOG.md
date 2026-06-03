@@ -1,3 +1,11 @@
+## 4.2.6
+
+- update dependencies (by [enzo-santos](https://github.com/MohiuddinM/i18n/pull/34))
+
+## 4.2.5
+
+- update dependencies
+
 ## 4.2.4
 
 - fix double digit version parsing for formatter
